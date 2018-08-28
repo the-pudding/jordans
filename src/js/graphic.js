@@ -1,12 +1,11 @@
 /* global d3 */
 import gsap from 'gsap';
 import morphSVG from './MorphSVGPlugin';
+//import interpolate from 'flubber';
 
 function resize() {}
 
-function init() {
-	console.log('Make something awesome!');
-
+function gsapAnimation() {
 	var tl = new TimelineMax({paused:false})
 
 	tl.to("#j1_x5F_tongueRed", 1, {
@@ -60,6 +59,24 @@ function init() {
 	tl.to("#jordan2", 0.25, {
 		visibility: 'visible'
 	})
+}
+
+function flubberAnimation() {
+	const test1 = d3.select('#j1_x5F_baseWhite').attr('d')
+	const test2 = d3.select('#j1_x5F_toeWhite').attr('d')
+
+	//console.log(test1)
+
+	const interpolator = flubber.interpolate(test1, test2);
+
+	d3.select("#j1_x5F_baseWhite")
+    .transition()
+		.duration(1000)
+    .attrTween("d", function(){ return interpolator; });
+}
+
+function init() {
+	flubberAnimation()
 }
 
 export default { init, resize };
