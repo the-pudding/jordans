@@ -61,22 +61,62 @@ function gsapAnimation() {
 	})
 }
 
-function flubberAnimation() {
-	const test1 = d3.select('#j1_x5F_baseWhite').attr('d')
-	const test2 = d3.select('#j1_x5F_toeWhite').attr('d')
-
-	//console.log(test1)
+function flubberSingle() {
+	const test1 = d3.select('#j1_x5F_1').attr('d')
+	const test2 = d3.select('#j2_x5F_1').attr('d')
 
 	const interpolator = flubber.interpolate(test1, test2);
 
-	d3.select("#j1_x5F_baseWhite")
-    .transition()
+	d3.select("#j1_x5F_1")
+		.transition()
 		.duration(1000)
-    .attrTween("d", function(){ return interpolator; });
+		.attrTween("d", function(){ return interpolator; });
+}
+
+function flubberArray() {
+	const test1 = d3.select('#j1_x5F_1').attr('d')
+	const test2 = d3.select('#j2_x5F_1').attr('d')
+	const test3 = d3.select('#j3_x5F_1').attr('d')
+	const test4 = d3.select('#j4_x5F_1').attr('d')
+
+	// Remove all the paths except the first
+	d3.selectAll("#jordan2").remove();
+	d3.selectAll("#jordan3").remove();
+	d3.selectAll("#jordan4").remove();
+
+	let shapeArray = []
+	shapeArray.push(test1, test2, test2, test4)
+
+	console.log(shapeArray)
+
+	//const interpolator = flubber.interpolate(test1, test2);
+
+	d3.select('#j1_x5F_1')
+		.style('display', 'block')
+    .call(animate)
+
+	function animate(sel) {
+		let start = shapeArray.shift(),
+				end = shapeArray[0]
+
+		shapeArray.push(start);
+
+		sel
+			.datum({start, end})
+			.transition()
+			.duration(1500)
+	    .attrTween("d", function(d){
+				return flubber.interpolate(d.start, d.end, { maxSegmentLength: 0.1})
+			})
+			.on("end", function() {
+      	sel.call(animate);
+    	});
+	}
 }
 
 function init() {
-	flubberAnimation()
+	//flubberArray()
+	flubberSingle()
 }
 
 export default { init, resize };
