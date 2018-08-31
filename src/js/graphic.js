@@ -187,7 +187,7 @@ function flubberArray() {
 	}
 }
 
-function test(index) {
+function pathsToJSON(index) {
 	const output = [];
 	// selects specific jordan
 	d3.select(`#jordan${index + 1}`)
@@ -197,28 +197,31 @@ function test(index) {
 			const pathCoordinates = $path.at('d');
 			output.push(pathCoordinates);
 		});
-	// 	.each(function(d,i,n) {
-	// 	const $path = d3.select(this)
-	// 	const pathCoordinates = $path.at('d')
-	// 	output.push(pathCoordinates);
-	// });
-	return output;
+	//turns the output paths into a JSON string
+	let stringOutput = JSON.stringify(output);
+	return stringOutput;
 }
 
 function getPaths(index) {
 	const output = [];
+	//selects each jordan version (i.e. jordan1)
 	d3.select(`#jordan${index}`)
 		.selectAll('path')
+		//d = path, i = index, n = node
 		.each((d, i, n) => {
 			const $path = d3.select(n[i]);
+			//get the svg path coordinates
 			const pathCoordinates = $path.at('d');
-			console.log($path.at('id'));
+			//attempts to assign class to color
+			const pathClass = $path.at('class');
+			$path.classed(`j${index}-${pathClass}`, true)
+			//add the svg path coordinates to the output array
 			output.push(pathCoordinates);
 		});
 	return output;
 }
 
-function russell() {
+function flubberAnimateAll() {
 	const j1 = getPaths(1)
 		.reverse()
 		.slice(0, 13);
@@ -250,7 +253,8 @@ function russell() {
 }
 
 function init() {
-	russell();
+	flubberAnimateAll();
+	//pathsToJSON(1);
 	// flubberArray()
 	// flubberSingle();
 	// window.output = JSON.stringify(d3.range(4).map(test));
