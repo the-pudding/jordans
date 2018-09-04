@@ -3,6 +3,8 @@ import * as flubber from 'flubber';
 import tracker from './utils/tracker';
 
 let jordanData = [];
+let flatData = [];
+let nestedData = []
 
 function resize() {}
 
@@ -70,6 +72,28 @@ function pathsToJSON() {
 	window.output = JSON.stringify(output);
 }
 
+function unNestData() {
+	jordanData.forEach(function(shoes, i) {
+		const jNumber = i + 1
+		shoes.forEach(function(shoe) {
+			flatData.push({
+				shoeNumber: 'jordan' + jNumber,
+				coordinates: shoe.coordinates,
+				color: shoe.color
+			})
+		})
+	});
+	console.log(flatData);
+}
+
+function nestData() {
+	nestedData = d3.nest()
+		.key(d => d.shoeNumber)
+		.entries(flatData)
+
+	console.log(nestedData)
+}
+
 function getPaths(g) {
 	const $g = d3.select(g);
 
@@ -88,12 +112,14 @@ function getPaths(g) {
 	return output;
 }
 
-function flubberAnimateAll({ prev, next }) {
+function flubberAnimateAll({ prev, next }, i) {
 	const j1 = jordanData[prev]
 		.map(d => d.coordinates)
 		.reverse()
 		.slice(0, 13);
-	const j2 = jordanData[next].map(d => d.coordinates).slice(0, 13);
+	const j2 = jordanData[next].map(d => d.coordinates)
+		.reverse()
+		.slice(0, 13);
 	// console.log({ j1, j2 });
 	let interpolator = null;
 	if (j1.length === j2.length) {
@@ -112,10 +138,8 @@ function flubberAnimateAll({ prev, next }) {
 		.data(interpolator)
 		.transition()
 		.duration(1500)
+		//.style('fill', 'red')
 		.attrTween('d', d => d);
-	// .on('end', () => {
-	// 	sel.call(animate);
-	// });
 }
 
 function loadData() {
@@ -133,6 +157,8 @@ function init() {
 		.then(data => {
 			jordanData = data;
 			// render graphic stuff now
+			//unNestData();
+			//nestData();
 			flubberAnimateAll({ prev: 0, next: 1 });
 		})
 		.catch(console.log);
