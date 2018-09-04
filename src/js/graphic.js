@@ -1,136 +1,10 @@
 /* global d3 */
-// import gsap from 'gsap';
 import * as flubber from 'flubber';
 import tracker from './utils/tracker';
-// import morphSVG from './MorphSVGPlugin';
+
+let jordanData = [];
 
 function resize() {}
-
-function gsapAnimation() {
-	const tl = new TimelineMax({ paused: false });
-
-	tl.to(
-		'#j1_x5F_tongueRed',
-		1,
-		{
-			morphSVG: { shape: '#j2_x5F_tongueBlack' },
-			fill: '#000'
-		},
-		0
-	)
-		.to(
-			'#j1_x5F_topBlack',
-			1,
-			{
-				morphSVG: { shape: '#j2_x5F_topBlack' }
-			},
-			0
-		)
-		.to(
-			'#j1_x5F_ankleRed',
-			1,
-			{
-				morphSVG: { shape: '#j2_x5F_ankleWhite' },
-				fill: '#ffffff'
-			},
-			0
-		)
-		.to(
-			'#j1_x5F_midWhite',
-			1,
-			{
-				morphSVG: { shape: '#j2_x5F_midWhite' }
-			},
-			0
-		)
-		.to(
-			'#j1_x5F_lacesWhite',
-			1,
-			{
-				morphSVG: { shape: '#j2_x5F_tongueWhite' }
-			},
-			0
-		)
-		.to(
-			'#j1_x5F_toeWhite',
-			1,
-			{
-				morphSVG: { shape: '#j2_x5F_bodyWhite' }
-			},
-			0
-		)
-		.to(
-			'#j1_x5F_toeRed',
-			1,
-			{
-				morphSVG: { shape: '#j2_x5F_frontToeWhite' },
-				fill: '#ffffff'
-			},
-			0
-		)
-		.to(
-			'#j1_x5F_lacesRed',
-			1,
-			{
-				morphSVG: { shape: '#j2_x5F_redOutline' },
-				fill: '#b42c30'
-			},
-			0
-		)
-		.to(
-			'#j1_x5F_ankleBlack',
-			1,
-			{
-				morphSVG: { shape: '#j2_x5F_blackOutline' }
-			},
-			0
-		)
-		.to(
-			'#j1_x5F_nikeBlack',
-			1,
-			{
-				morphSVG: { shape: '#j2_x5F_waveRed' },
-				fill: '#b42c30'
-			},
-			0
-		)
-		.to(
-			'#j1_x5F_backRed',
-			1,
-			{
-				morphSVG: { shape: '#j2_x5F_midRed' }
-			},
-			0
-		)
-		.to(
-			'#j1_x5F_baseWhite',
-			1,
-			{
-				morphSVG: { shape: '#j2_x5F_backWhite' }
-			},
-			0
-		)
-		.to(
-			'#j1_x5F_supportRed',
-			1,
-			{
-				morphSVG: { shape: '#j2_x5F_soleBlack' },
-				fill: '#000'
-			},
-			0
-		)
-		.to(
-			'#j1_x5F_baseRed',
-			1,
-			{
-				morphSVG: { shape: '#j2_x5F_soleRed' }
-			},
-			0
-		);
-	tl.to('#jordan2', 0.25, {
-		visibility: 'visible'
-	});
-}
 
 function flubberSingle() {
 	const test1 = d3.select('#j1_x5F_1').attr('d');
@@ -187,47 +61,39 @@ function flubberArray() {
 	}
 }
 
-function pathsToJSON(index) {
+function pathsToJSON() {
 	const output = [];
-	// selects specific jordan
-	d3.select(`#jordan${index + 1}`)
-		.selectAll('path')
-		.each((d, i, n) => {
-			const $path = d3.select(n[i]);
-			const pathCoordinates = $path.at('d');
-			output.push(pathCoordinates);
-		});
-	//turns the output paths into a JSON string
-	let stringOutput = JSON.stringify(output);
-	return stringOutput;
+	d3.selectAll('.jordan svg > g').each(function() {
+		output.push(getPaths(this));
+	});
+
+	window.output = JSON.stringify(output);
 }
 
-function getPaths(index) {
+function getPaths(g) {
+	const $g = d3.select(g);
+
 	const output = [];
-	//selects each jordan version (i.e. jordan1)
-	d3.select(`#jordan${index}`)
-		.selectAll('path')
-		//d = path, i = index, n = node
+	$g.selectAll('path')
+		// d = path, i = index, n = node
 		.each((d, i, n) => {
 			const $path = d3.select(n[i]);
-			//get the svg path coordinates
-			const pathCoordinates = $path.at('d');
-			//attempts to assign class to color
-			const pathClass = $path.at('class');
-			$path.classed(`j${index}-${pathClass}`, true)
-			//add the svg path coordinates to the output array
-			output.push(pathCoordinates);
+			// get the svg path coordinates
+			const coordinates = $path.at('d');
+			// attempts to assign class to color
+			const color = $path.at('class');
+			// add the svg path coordinates to the output array
+			output.push({ coordinates, color });
 		});
 	return output;
 }
 
-function flubberAnimateAll() {
-	const j1 = getPaths(1)
+function flubberAnimateAll({ prev, next }) {
+	const j1 = jordanData[prev]
+		.map(d => d.coordinates)
 		.reverse()
 		.slice(0, 13);
-	const j2 = getPaths(2)
-		.reverse()
-		.slice(0, 13);
+	const j2 = jordanData[next].map(d => d.coordinates).slice(0, 13);
 	// console.log({ j1, j2 });
 	let interpolator = null;
 	if (j1.length === j2.length) {
@@ -252,9 +118,25 @@ function flubberAnimateAll() {
 	// });
 }
 
+function loadData() {
+	return new Promise((resolve, reject) => {
+		d3.loadData('assets/data/jordans.json', (err, response) => {
+			if (err) reject('error loading data');
+			else resolve(response[0]);
+		});
+	});
+}
+
 function init() {
-	flubberAnimateAll();
-	//pathsToJSON(1);
+	// pathsToJSON();
+	loadData()
+		.then(data => {
+			jordanData = data;
+			// render graphic stuff now
+			flubberAnimateAll({ prev: 0, next: 1 });
+		})
+		.catch(console.log);
+
 	// flubberArray()
 	// flubberSingle();
 	// window.output = JSON.stringify(d3.range(4).map(test));
