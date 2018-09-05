@@ -5,29 +5,21 @@ import tracker from './utils/tracker';
 let jordanData = [];
 let flatData = [];
 let nestedData = [];
+let currentShoe = 0;
 
-const fillMatches = [{
-	className: 'st0',
-	fill: '#FFFFFF'
-}, {
-	className: 'st1',
-	fill: '#282828'
-}, {
-	className: 'st2',
-	fill: '#D81F28'
-}, {
-	className: 'st3',
-	fill: '#FFFFFF'
-}, {
-	className: 'st4',
-	fill: '#E31E26'
-}, {
-	className: 'st5',
-	fill: '#BCBEC0'
-}, {
-	className: 'st6',
-	fill: '#E6E7E8'
-}]
+const fillMatches = {
+	st0: '#FFFFFF',
+	st1: '#282828',
+	st2: '#D81F28',
+	st3: '#FFFFFF',
+	st4: '#E31E26',
+	st5: '#BCBEC0',
+	st6: '#E6E7E8',
+	st9: '#4D4D4F',
+	st10: '#E6E6E6',
+	st11: '#952124',
+	st12: '#B42C30'
+}
 
 function resize() {}
 
@@ -143,6 +135,9 @@ function flubberAnimateAll({ prev, next }, i) {
 	const j2 = jordanData[next].map(d => d.coordinates)
 		.reverse()
 		.slice(0, 13);
+	const j2colors = jordanData[next].map(d => d.color)
+		.reverse()
+		.slice(0, 13);
 	// console.log({ j1, j2 });
 	let interpolator = null;
 	if (j1.length === j2.length) {
@@ -155,14 +150,18 @@ function flubberAnimateAll({ prev, next }, i) {
 	} else {
 		interpolator = flubber.combine(j1, j2, { single: false });
 	}
-	// console.log({ interpolator });
+	//console.log({ interpolator });
+	const combinedShoes = j2colors.map((color, i) => ({color, interpolatorFunc: interpolator[i]}))
+
 	d3.select('#jordan1')
 		.selectAll('path')
-		.data(interpolator)
+		.data(combinedShoes)
 		.transition()
 		.duration(1500)
-		.style('fill', 'red')
-		.attrTween('d', d => d);
+		.style('fill', d => fillMatches[d.color])
+		.attrTween('d', d => d.interpolatorFunc);
+
+	currentShoe = next;
 }
 
 function loadData() {
@@ -174,6 +173,12 @@ function loadData() {
 	});
 }
 
+function advanceShoe() {
+	setTimeout(() => {
+		flubberAnimateAll({ prev: currentShoe, next: currentShoe+1 });
+	}, 3000)
+}
+
 function init() {
 	// pathsToJSON();
 	loadData()
@@ -182,7 +187,8 @@ function init() {
 			// render graphic stuff now
 			//unNestData();
 			//nestData();
-			flubberAnimateAll({ prev: 0, next: 1 });
+			flubberAnimateAll({ prev: currentShoe, next: currentShoe+1 });
+			advanceShoe();
 		})
 		.catch(console.log);
 
