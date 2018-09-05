@@ -4,7 +4,30 @@ import tracker from './utils/tracker';
 
 let jordanData = [];
 let flatData = [];
-let nestedData = []
+let nestedData = [];
+
+const fillMatches = [{
+	className: 'st0',
+	fill: '#FFFFFF'
+}, {
+	className: 'st1',
+	fill: '#282828'
+}, {
+	className: 'st2',
+	fill: '#D81F28'
+}, {
+	className: 'st3',
+	fill: '#FFFFFF'
+}, {
+	className: 'st4',
+	fill: '#E31E26'
+}, {
+	className: 'st5',
+	fill: '#BCBEC0'
+}, {
+	className: 'st6',
+	fill: '#E6E7E8'
+}]
 
 function resize() {}
 
@@ -138,7 +161,7 @@ function flubberAnimateAll({ prev, next }, i) {
 		.data(interpolator)
 		.transition()
 		.duration(1500)
-		//.style('fill', 'red')
+		.style('fill', 'red')
 		.attrTween('d', d => d);
 }
 
