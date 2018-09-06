@@ -128,6 +128,7 @@ function getPaths(g) {
 }
 
 function flubberAnimateAll({ prev, next }, i) {
+
 	const j1 = jordanData[prev]
 		.map(d => d.coordinates)
 		.reverse()
@@ -162,6 +163,8 @@ function flubberAnimateAll({ prev, next }, i) {
 		.attrTween('d', d => d.interpolatorFunc);
 
 	currentShoe = next;
+	hideImage(prev)
+	revealImage(next)
 }
 
 function loadData() {
@@ -173,9 +176,19 @@ function loadData() {
 	});
 }
 
+function revealImage(next) {
+	let currentImg = `#j${next}-image`
+	d3.selectAll(currentImg).style('display', 'block')
+}
+
+function hideImage(prev) {
+	let currentImg = `#j${prev}-image`
+	d3.selectAll(currentImg).style('display', 'none')
+}
+
 function advanceShoe() {
 	setTimeout(() => {
-		flubberAnimateAll({ prev: currentShoe, next: currentShoe+1 });
+		flubberAnimateAll({ prev: currentShoe, next: currentShoe + 1 });
 	}, 3000)
 }
 
@@ -187,7 +200,7 @@ function init() {
 			// render graphic stuff now
 			//unNestData();
 			//nestData();
-			flubberAnimateAll({ prev: currentShoe, next: currentShoe+1 });
+			flubberAnimateAll({ prev: currentShoe, next: currentShoe + 1 });
 			advanceShoe();
 		})
 		.catch(console.log);
