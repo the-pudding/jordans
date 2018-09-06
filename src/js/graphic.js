@@ -158,7 +158,7 @@ function flubberAnimateAll({ prev, next }, i) {
 		.selectAll('path')
 		.data(combinedShoes)
 		.transition()
-		.duration(1500)
+		.duration(1000)
 		.style('fill', d => fillMatches[d.color])
 		.attrTween('d', d => d.interpolatorFunc);
 
@@ -177,26 +177,34 @@ function loadData() {
 }
 
 function revealImage(next) {
-	let currentImg = `#j${next}-image`
-	d3.selectAll(currentImg).style('display', 'block')
+	let currentImg = `#j${next+1}-image`
+	console.log(currentImg)
+	d3.selectAll(currentImg)
+		.transition()
+		.duration(1500)
+		.delay(1000)
+		.style('opacity', '1')
 }
 
 function hideImage(prev) {
-	let currentImg = `#j${prev}-image`
-	d3.selectAll(currentImg).style('display', 'none')
+	let currentImg = `#j${prev+1}-image`
+	d3.selectAll(currentImg)
+		.transition()
+		.duration(0)
+		.style('opacity', '0')
 }
 
 function advanceShoe() {
 	setTimeout(() => {
 		flubberAnimateAll({ prev: currentShoe, next: currentShoe + 1 });
-	}, 3000)
+	}, 5000)
 }
 
 function init() {
 	// pathsToJSON();
 	loadData()
 		.then(data => {
-			jordanData = data;
+			jordanData = data.reverse();
 			// render graphic stuff now
 			//unNestData();
 			//nestData();
