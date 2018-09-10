@@ -132,13 +132,13 @@ function flubberAnimateAll({ prev, next }, i) {
 	const j1 = jordanData[prev]
 		.map(d => d.coordinates)
 		.reverse()
-		.slice(0, 13);
+		.slice(0, 5);
 	const j2 = jordanData[next].map(d => d.coordinates)
 		.reverse()
-		.slice(0, 13);
+		.slice(0, 5);
 	const j2colors = jordanData[next].map(d => d.color)
 		.reverse()
-		.slice(0, 13);
+		.slice(0, 5);
 	// console.log({ j1, j2 });
 	let interpolator = null;
 	if (j1.length === j2.length) {
@@ -163,8 +163,9 @@ function flubberAnimateAll({ prev, next }, i) {
 		.attrTween('d', d => d.interpolatorFunc);
 
 	currentShoe = next;
-	hideImage(prev)
-	revealImage(next)
+	console.log(currentShoe)
+	//hideImage(prev)
+	//revealImage(next)
 }
 
 function loadData() {
@@ -197,11 +198,11 @@ function hideImage(prev) {
 function advanceShoe() {
 	setTimeout(() => {
 		flubberAnimateAll({ prev: currentShoe, next: currentShoe + 1 });
-	}, 5000)
+	}, 1500)
 }
 
 function init() {
-	// pathsToJSON();
+	pathsToJSON();
 	loadData()
 		.then(data => {
 			jordanData = data.reverse();
