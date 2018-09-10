@@ -1,83 +1,67 @@
 /* CUSTOM STORY STYLE */
 body
-  background-color $off-white
+  background-color #23c29c
+  overflow hidden
+  height 100vh
+
+  .skewed-bg
+    background-color #1cb794
+    transform skew(0deg, -30deg)
+    position absolute
+    height 100vh
+    width 100%
+    z-index 1
 
   #content
     width 100%
     height 100vh
-
-.jordan
-  max-width 960px
-  margin 0 auto
-  width 100%
-  position relative
-
-  .details-overlay
+    z-index 999
     position absolute
-    top -77px
-    width 105%
-    opacity 0
+    padding-top 5rem
 
-  .third
-    left -37px
-    top -71px
-
-  svg
-    position absolute
+  .jordan
+    max-width 960px
+    margin 0 auto
     width 100%
+    position relative
 
-    g
-      display none
+    .details-text
+      display flex
+      flex-direction row
+      justify-content space-between
 
-    #jordan1
-      display block
+      p
+        font-family $atlas
 
-    #jordan2, #jordan3, #jordan4
-      display none
+    .details-overlay
+      position absolute
+      top -77px
+      width 105%
+      opacity 0
 
-    path
-      opacity 1
+    .third
+      left -37px
+      top -71px
 
-    .st7
-      display none
-    .st8
-      display inline
+    svg
+      position absolute
+      width 100%
 
-    .j4-st0
-      fill #FFFFFF
-    .j4-st1
-      fill #282828
-    .j4-st2
-      fill #D81F28
-    .j4-st3
-      fill #FFFFFF
-    .j4-st4
-      fill #E31E26
-    .j4-st5
-      fill #BCBEC0
-    .j4-st6
-      fill #E6E7E8
+      g
+        display none
 
-    .j3-st9
-      fill #4D4D4F
-    .j3-st10
-      fill #E6E6E6
-    .j3-st11
-      fill #952124
+      #jordan1
+        display block
 
-    .j2-st3
-      fill #FFFFFF
-    .j2-st11
-      fill #952124
-    .j2-st12
-      fill #B42C30
+      path
+        opacity 1
+        fill #000000
 
-    .j1-st3
-      fill #FFFFFF
-    .j1-st12
-      fill #B42C30
+      .st0
+        fill white
 
-    .st3
-      fill #FFFFFF
-    .st12
-      fill #B42C30
+      .st1
+        fill #D81F28
+
+      .st2
+        fill #58595B

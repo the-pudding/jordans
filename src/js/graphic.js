@@ -8,75 +8,29 @@ let nestedData = [];
 let currentShoe = 0;
 
 const fillMatches = {
-	st0: '#FFFFFF',
-	st1: '#282828',
-	st2: '#D81F28',
-	st3: '#FFFFFF',
-	st4: '#E31E26',
-	st5: '#BCBEC0',
-	st6: '#E6E7E8',
-	st9: '#4D4D4F',
-	st10: '#E6E6E6',
-	st11: '#952124',
-	st12: '#B42C30'
+	null: '#000000',
+	st0: 'url(#whiteGradient)',
+	st1: '#D81F28',
+	st2: '#58595B',
+	st3: '#414042',
+	st4: '#BCBEC0',
+	st5: '#E31E26',
+	st6: '#282829',
+	st7: '#939598',
+	st8: '#D1D3D4',
+	st9: '#B42C30',
+	st10: '#F3B81E',
+	st11: '#C7E9F1',
+	st12: '#FFFFFF',
+	st13: '#F26C4B',
+	st14: '#EF412C',
+	st15: 'url(#j30_x5F_6_2_)',
+	st16: 'url(#j30_x5F_4_2_)',
+	st17: 'url(#j30_x5F_3_1_)',
+	st18: 'url(#j31_x5F_3_1_)'
 }
 
 function resize() {}
-
-function flubberSingle() {
-	const test1 = d3.select('#j1_x5F_1').attr('d');
-	const test2 = d3.select('#j2_x5F_1').attr('d');
-	console.log({ test1 });
-
-	const interpolator = flubber.interpolate(test1, test2);
-
-	d3.select('#j1_x5F_1')
-		.transition()
-		.duration(1000)
-		.attrTween('d', () => interpolator);
-}
-
-function flubberArray() {
-	const test1 = d3.select('#j1_x5F_1').attr('d');
-	const test2 = d3.select('#j2_x5F_1').attr('d');
-	const test3 = d3.select('#j3_x5F_1').attr('d');
-	const test4 = d3.select('#j4_x5F_1').attr('d');
-
-	// Remove all the paths except the first
-	d3.selectAll('#jordan2').remove();
-	d3.selectAll('#jordan3').remove();
-	d3.selectAll('#jordan4').remove();
-
-	const shapeArray = [];
-	shapeArray.push(test1, test2, test2, test4);
-
-	console.log(shapeArray);
-
-	// const interpolator = flubber.interpolate(test1, test2);
-
-	d3.select('#j1_x5F_1')
-		.style('display', 'block')
-		.call(animate);
-
-	function animate(sel) {
-		const start = shapeArray.shift();
-
-		const end = shapeArray[0];
-
-		shapeArray.push(start);
-
-		sel
-			.datum({ start, end })
-			.transition()
-			.duration(1500)
-			.attrTween('d', d =>
-				flubber.interpolate(d.start, d.end, { maxSegmentLength: 0.1 })
-			)
-			.on('end', () => {
-				sel.call(animate);
-			});
-	}
-}
 
 function pathsToJSON() {
 	const output = [];
@@ -85,28 +39,6 @@ function pathsToJSON() {
 	});
 
 	window.output = JSON.stringify(output);
-}
-
-function unNestData() {
-	jordanData.forEach(function(shoes, i) {
-		const jNumber = i + 1
-		shoes.forEach(function(shoe) {
-			flatData.push({
-				shoeNumber: 'jordan' + jNumber,
-				coordinates: shoe.coordinates,
-				color: shoe.color
-			})
-		})
-	});
-	console.log(flatData);
-}
-
-function nestData() {
-	nestedData = d3.nest()
-		.key(d => d.shoeNumber)
-		.entries(flatData)
-
-	console.log(nestedData)
 }
 
 function getPaths(g) {
@@ -129,16 +61,16 @@ function getPaths(g) {
 
 function flubberAnimateAll({ prev, next }, i) {
 
-	const j1 = jordanData[prev]
+	let j1 = jordanData[prev]
 		.map(d => d.coordinates)
 		.reverse()
-		.slice(0, 5);
-	const j2 = jordanData[next].map(d => d.coordinates)
+		//.slice(0, 5);
+	let j2 = jordanData[next].map(d => d.coordinates)
 		.reverse()
-		.slice(0, 5);
-	const j2colors = jordanData[next].map(d => d.color)
+		//.slice(0, 5);
+	let j2colors = jordanData[next].map(d => d.color)
 		.reverse()
-		.slice(0, 5);
+		//.slice(0, 5);
 	// console.log({ j1, j2 });
 	let interpolator = null;
 	if (j1.length === j2.length) {
@@ -147,9 +79,13 @@ function flubberAnimateAll({ prev, next }, i) {
 			single: false
 		});
 	} else if (j1.length < j2.length) {
-		interpolator = flubber.separate(j1, j2, { single: false });
+		let lastShape = j1.length - 1
+		let lastShapeCoords = j1[lastShape]
+		interpolator = flubber.separate(lastShapeCoords, j2, { single: false });
 	} else {
-		interpolator = flubber.combine(j1, j2, { single: false });
+		let lastShape = j2.length - 1
+		let lastShapeCoords = j2[lastShape]
+		interpolator = flubber.combine(j1, lastShapeCoords, { single: false });
 	}
 	//console.log({ interpolator });
 	const combinedShoes = j2colors.map((color, i) => ({color, interpolatorFunc: interpolator[i]}))
@@ -163,7 +99,6 @@ function flubberAnimateAll({ prev, next }, i) {
 		.attrTween('d', d => d.interpolatorFunc);
 
 	currentShoe = next;
-	console.log(currentShoe)
 	//hideImage(prev)
 	//revealImage(next)
 }
@@ -175,6 +110,13 @@ function loadData() {
 			else resolve(response[0]);
 		});
 	});
+}
+
+function removePaths() {
+	// Remove all the paths except the first
+	d3.selectAll("g")
+	  .filter(function(d, i) { return i; })
+	  .remove();
 }
 
 function revealImage(next) {
@@ -203,20 +145,15 @@ function advanceShoe() {
 
 function init() {
 	pathsToJSON();
+	removePaths();
 	loadData()
 		.then(data => {
 			jordanData = data.reverse();
 			// render graphic stuff now
-			//unNestData();
-			//nestData();
 			flubberAnimateAll({ prev: currentShoe, next: currentShoe + 1 });
 			advanceShoe();
 		})
 		.catch(console.log);
-
-	// flubberArray()
-	// flubberSingle();
-	// window.output = JSON.stringify(d3.range(4).map(test));
 }
 
 export default { init, resize };

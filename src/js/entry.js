@@ -2,8 +2,6 @@
 import debounce from 'lodash.debounce';
 import isMobile from './utils/is-mobile';
 import graphic from './graphic';
-import gsap from 'gsap';
-import morphSVG from './MorphSVGPlugin';
 import flubber from 'flubber';
 
 const $body = d3.select('body');
