@@ -140,8 +140,8 @@ function advanceShoe() {
 }
 
 function init() {
-	pathsToJSON();
-	//removePaths();
+	//pathsToJSON();
+	removePaths();
 	loadData()
 		.then(data => {
 			jordanData = data

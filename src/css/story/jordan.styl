@@ -1,62 +1,105 @@
 /* CUSTOM STORY STYLE */
 body
-  //background-color #23c29c
   overflow hidden
   height 100vh
-
-  .skewed-bg
-    background-color #1cb794
-    transform skew(0deg, -30deg)
-    position absolute
-    height 100vh
-    width 100%
-    z-index 1
 
   #content
     width 100%
     height 100vh
     z-index 999
-    position absolute
     padding-top 5rem
-
-  .jordan
-    max-width 960px
-    margin 0 auto
-    width 100%
-    position relative
 
     .details-text
       display flex
       flex-direction row
       justify-content space-between
+      max-width 960px
+      margin 0 auto
 
-      p
-        font-family $atlas
+      .short-deets
+        width 13rem
+        margin-right 2rem
 
-    .details-overlay
-      position absolute
+        .jordanNumber
+          font-family $raj
+          font-weight 100
+          font-size 6rem
+          margin 0
+          padding 0
+          line-height 1
+
+        .deet-catagory
+          font-family $raj
+          color $gray
+          text-transform uppercase
+          border-bottom 1px solid $off-white
+          padding 0 0 0.5rem 0
+          set-type-size('x-small', true)
+          line-height 0.75
+          margin 0 0 0.5rem 0
+
+          .deet-data
+            padding 0
+            margin 0
+            text-transform none
+            set-type-size('medium', true)
+            color $off-black
+
+      .long-desc
+        width calc(100% - 15rem)
+        border-left 1px solid $off-white
+        padding-left 2rem
+
+        .jordanName
+          font-family $raj
+          text-transform uppercase
+          set-type-size('x-large', true)
+          padding 0
+          margin 0
+
+        .jordanInfo
+          font-family $atlas
+          color $gray-dark
+          padding 0
+          margin 0
+
+    .jordan
+      max-width 960px
+      margin 0 auto
       width 100%
-      opacity 0
+      height 60%
+      position relative
+      display flex
+      flex-direction column
 
-    svg
-      position absolute
-      width 100%
+      .shoe-wrapper
 
-      g
-        display none
+        .images
 
-      #jordan1
-        display block
+          .details-overlay
+            position absolute
+            width 100%
+            opacity 0
 
-      path
-        opacity 1
-        fill #000000
+        svg
+          position absolute
+          width 100%
 
-      .st0
-        fill white
+          g
+            display none
 
-      .st1
-        fill #D81F28
+          #jordan1
+            display block
 
-      .st2
-        fill #58595B
+          path
+            opacity 1
+            fill #000000
+
+          .st0
+            fill white
+
+          .st1
+            fill #D81F28
+
+          .st2
+            fill #58595B
