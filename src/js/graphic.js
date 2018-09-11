@@ -135,7 +135,13 @@ function hideImage(prev) {
 }
 
 function updateText(next) {
-	//console.log(next, jordanDetails)
+	const jordanNum = `jordan${next}`
+	const singleShoe = jordanDetails.filter(function(d) { return d.shoeID == jordanNum})
+	const dateUpdate = d3.selectAll('.date')
+	const priceUpdate = d3.selectAll('.price')
+	const designerUpdate = d3.selectAll('.designer')
+	const nameUpdate = d3.selectAll('.jordanName')
+	const infoUpdate = d3.selectAll('.infoName')
 }
 
 function advanceShoe() {
