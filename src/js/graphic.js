@@ -43,6 +43,7 @@ function pathsToJSON() {
 
 function getPaths(g) {
 	const $g = d3.select(g);
+	const shoeID = $g.at('id')
 
 	const output = [];
 	$g.selectAll('path')
@@ -51,10 +52,10 @@ function getPaths(g) {
 			const $path = d3.select(n[i]);
 			// get the svg path coordinates
 			const coordinates = $path.at('d');
-			// attempts to assign class to color
+			// assigns class to color
 			const color = $path.at('class');
 			// add the svg path coordinates to the output array
-			output.push({ coordinates, color });
+			output.push({ coordinates, color, shoeID });
 		});
 	return output;
 }
@@ -64,14 +65,11 @@ function flubberAnimateAll({ prev, next }, i) {
 	let j1 = jordanData[prev]
 		.map(d => d.coordinates)
 		.reverse()
-		//.slice(0, 5);
 	let j2 = jordanData[next].map(d => d.coordinates)
 		.reverse()
-		//.slice(0, 5);
 	let j2colors = jordanData[next].map(d => d.color)
 		.reverse()
-		//.slice(0, 5);
-	// console.log({ j1, j2 });
+	//console.log({ j1, j2 });
 	let interpolator = null;
 	if (j1.length === j2.length) {
 		interpolator = flubber.interpolateAll(j1, j2, {
@@ -87,7 +85,6 @@ function flubberAnimateAll({ prev, next }, i) {
 		let lastShapeCoords = j2[lastShape]
 		interpolator = flubber.combine(j1, lastShapeCoords, { single: false });
 	}
-	//console.log({ interpolator });
 	const combinedShoes = j2colors.map((color, i) => ({color, interpolatorFunc: interpolator[i]}))
 
 	d3.select('#jordan1')
@@ -98,9 +95,9 @@ function flubberAnimateAll({ prev, next }, i) {
 		.style('fill', d => fillMatches[d.color])
 		.attrTween('d', d => d.interpolatorFunc);
 
-	currentShoe = next;
-	//hideImage(prev)
-	//revealImage(next)
+	currentShoe = next
+	hideImage(prev)
+	revealImage(next)
 }
 
 function loadData() {
@@ -121,7 +118,6 @@ function removePaths() {
 
 function revealImage(next) {
 	let currentImg = `#j${next+1}-image`
-	console.log(currentImg)
 	d3.selectAll(currentImg)
 		.transition()
 		.duration(1500)
@@ -140,15 +136,15 @@ function hideImage(prev) {
 function advanceShoe() {
 	setTimeout(() => {
 		flubberAnimateAll({ prev: currentShoe, next: currentShoe + 1 });
-	}, 1500)
+	}, 5000)
 }
 
 function init() {
 	pathsToJSON();
-	removePaths();
+	//removePaths();
 	loadData()
 		.then(data => {
-			jordanData = data.reverse();
+			jordanData = data
 			// render graphic stuff now
 			flubberAnimateAll({ prev: currentShoe, next: currentShoe + 1 });
 			advanceShoe();
