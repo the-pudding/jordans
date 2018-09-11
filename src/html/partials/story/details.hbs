@@ -1,0 +1,16 @@
+<div class='details-wrapper'>
+	{{#each copy.jordanDetails}}
+	<div class='details-text' id='{{shoeID}}-details'>
+		<div class='short-deets'>
+			<p class='jordanNumber'>{{shoeNumber}}</p>
+			<p class='jordanDate deet-catagory'>Release date <span class='date deet-data'>{{originalReleaseDate}}</span></p>
+			<p class='jordanPrice deet-catagory'>Original price <span class='price deet-data'>{{originalPrice}}</span></p>
+			<p class='jordanDesigner deet-catagory'>Designer <span class='designer deet-data'>{{designer}}</span></p>
+		</div>
+		<div class='long-desc'>
+			<p class='jordanName'>{{shoeName}}</p>
+			<p class='jordanInfo'>{{desc}}</p>
+		</div>
+	</div>
+	{{/each}}
+</div>

@@ -1,0 +1,61 @@
+.details-wrapper
+  max-width 960px
+  margin 0 auto
+  position relative
+
+  .details-text
+    width 100%
+    display flex
+    flex-direction row
+    justify-content space-between
+    position absolute
+    opacity 0
+    &.is-visible
+      opacity 1
+
+    .short-deets
+      width 13rem
+      margin-right 2rem
+
+      .jordanNumber
+        font-family $raj
+        font-weight 100
+        font-size 6rem
+        margin 0
+        padding 0
+        line-height 1
+
+      .deet-catagory
+        font-family $raj
+        color $gray
+        text-transform uppercase
+        border-bottom 1px solid $off-white
+        padding 0 0 0.5rem 0
+        set-type-size('x-small', true)
+        line-height 0.75
+        margin 0 0 0.5rem 0
+
+        .deet-data
+          padding 0
+          margin 0
+          text-transform none
+          set-type-size('medium', true)
+          color $off-black
+
+    .long-desc
+      width calc(100% - 15rem)
+      border-left 1px solid $off-white
+      padding-left 2rem
+
+      .jordanName
+        font-family $raj
+        text-transform uppercase
+        set-type-size('x-large', true)
+        padding 0
+        margin 0
+
+      .jordanInfo
+        font-family $atlas
+        color $gray-dark
+        padding 0
+        margin 0

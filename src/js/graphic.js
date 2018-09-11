@@ -10,7 +10,7 @@ const dataSrc = ['assets/data/jordans.json', 'assets/data/jordanDetails.csv'];
 const fallbackColor = '#000';
 
 const fillMatches = {
-	st0: '#fff',
+	st0: '#ffffff', //FIX GRADIENTS
 	st1: '#D81F28',
 	st2: '#58595B',
 	st3: '#414042',
@@ -62,12 +62,6 @@ function getPaths(g) {
 }
 
 function flubberAnimateAll({ prev, next }) {
-	// 14
-	// 15
-
-	// int 1 = 9 x 9 interpolateAll
-	// int 2 = 6 x 1 separate
-
 	const j1 = jordanData[prev].map(d => d.coordinates).reverse();
 	const j2 = jordanData[next].map(d => d.coordinates).reverse();
 	const j2colors = jordanData[next].map(d => d.color).reverse();
@@ -75,7 +69,6 @@ function flubberAnimateAll({ prev, next }) {
 	let terpMatch = null;
 	const terpLeftover = null;
 
-	// 13
 	const smallestLength = Math.min(j1.length, j2.length);
 	const j1Match = j1.slice(0, smallestLength);
 	const j2Match = j2.slice(0, smallestLength);
@@ -84,23 +77,6 @@ function flubberAnimateAll({ prev, next }) {
 		match: true,
 		single: false
 	});
-
-	// let j2Leftover = [];
-
-	// if (j1.length < j2.length) {
-	// 	// separate
-	// 	// const lastShape = j1.pop();
-	// 	// j2Leftover = j2.slice(smallestLength, j2.length);
-	// 	// terpLeftover = flubber.separate(lastShape, j2Leftover, { single: true });
-	// } else {
-	// 	// combine
-	// 	// alert('freak out');
-	// 	const lastShape = j2.length - 1;
-	// 	const lastShapeCoords = j2[lastShape];
-	// 	interpolator = flubber.combine(j1, lastShapeCoords, { single: true });
-	// }
-
-	// console.log({ terpMatch, terpLeftover });
 	const combinedShoes = j2colors.map((color, i) => ({
 		color,
 		interpolatorFunc: i < smallestLength ? terpMatch[i] : null,
@@ -170,8 +146,8 @@ function updateText(next) {
 	// const $currentShoe = d3.selectAll('.shoe').filter((d, i) => i === next)
 	// const name = $currentShoe.select('.name').html()
 	// v2
-	// d3.selectAll('.shoe').classed('is-visible', (d, i) => i === next)
-	
+	d3.selectAll('.details-text').classed('is-visible', (d, i) => i === next)
+
 	// const jordanNum = `jordan${next}`;
 	// const singleShoe = jordanDetails.filter(d => d.shoeID == jordanNum);
 	// const dateUpdate = d3.selectAll('.date');
