@@ -166,13 +166,19 @@ function hideImage(prev) {
 }
 
 function updateText(next) {
-	const jordanNum = `jordan${next}`;
-	const singleShoe = jordanDetails.filter(d => d.shoeID == jordanNum);
-	const dateUpdate = d3.selectAll('.date');
-	const priceUpdate = d3.selectAll('.price');
-	const designerUpdate = d3.selectAll('.designer');
-	const nameUpdate = d3.selectAll('.jordanName');
-	const infoUpdate = d3.selectAll('.infoName');
+	// v1
+	// const $currentShoe = d3.selectAll('.shoe').filter((d, i) => i === next)
+	// const name = $currentShoe.select('.name').html()
+	// v2
+	// d3.selectAll('.shoe').classed('is-visible', (d, i) => i === next)
+	
+	// const jordanNum = `jordan${next}`;
+	// const singleShoe = jordanDetails.filter(d => d.shoeID == jordanNum);
+	// const dateUpdate = d3.selectAll('.date');
+	// const priceUpdate = d3.selectAll('.price');
+	// const designerUpdate = d3.selectAll('.designer');
+	// const nameUpdate = d3.selectAll('.jordanName');
+	// const infoUpdate = d3.selectAll('.infoName');
 }
 
 function advanceShoe() {
