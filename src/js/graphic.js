@@ -3,9 +3,9 @@ import * as flubber from 'flubber';
 import tracker from './utils/tracker';
 
 let jordanData = [];
-let flatData = [];
-let nestedData = [];
+let jordanDetails = [];
 let currentShoe = 0;
+const dataSrc = ['assets/data/jordans.json', 'assets/data/jordanDetails.csv']
 
 const fillMatches = {
 	null: '#000000',
@@ -98,13 +98,14 @@ function flubberAnimateAll({ prev, next }, i) {
 	currentShoe = next
 	hideImage(prev)
 	revealImage(next)
+	updateText(next);
 }
 
 function loadData() {
 	return new Promise((resolve, reject) => {
-		d3.loadData('assets/data/jordans.json', (err, response) => {
+		d3.loadData(...dataSrc, (err, response) => {
 			if (err) reject('error loading data');
-			else resolve(response[0]);
+			else resolve(response);
 		});
 	});
 }
@@ -133,6 +134,10 @@ function hideImage(prev) {
 		.style('opacity', '0')
 }
 
+function updateText(next) {
+	//console.log(next, jordanDetails)
+}
+
 function advanceShoe() {
 	setTimeout(() => {
 		flubberAnimateAll({ prev: currentShoe, next: currentShoe + 1 });
@@ -144,7 +149,8 @@ function init() {
 	removePaths();
 	loadData()
 		.then(data => {
-			jordanData = data
+			jordanData = data[0]
+			jordanDetails = data[1]
 			// render graphic stuff now
 			flubberAnimateAll({ prev: currentShoe, next: currentShoe + 1 });
 			advanceShoe();
