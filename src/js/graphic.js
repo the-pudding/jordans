@@ -2,13 +2,27 @@
 import * as flubber from 'flubber';
 import tracker from './utils/tracker';
 
+//selections
+const $nav = d3.select('nav')
+const $navUl = $nav.select('nav ul')
+const $navLi = $navUl.selectAll('li')
+
+//for nav
+let dragPosX = 0
+const navCount = $navLi.size()
+const navSize = $navLi.node().offsetWidth
+const totalW = navCount * navSize
+const dragMax = totalW - navSize
+const dragOffset = 0
+
+//data
 let jordanData = [];
 let jordanDetails = [];
 let currentShoe = 0;
 const dataSrc = ['assets/data/jordans.json', 'assets/data/jordanDetails.csv'];
 
+//colors
 const fallbackColor = '#000';
-
 const fillMatches = {
 	st0: '#ffffff', //FIX GRADIENTS
 	st1: '#D81F28',
@@ -92,13 +106,15 @@ function flubberAnimateAll({ prev, next }) {
 		.transition()
 		.duration(1000)
 		.st('fill', d => fillMatches[d.color] || fallbackColor)
+		.st('stroke', d => fillMatches[d.color] || fallbackColor)
 		.attrTween('d', d => d.interpolatorFunc);
 
 	$path
 		.enter()
 		.append('path')
 		.at('d', d => d.coordinates)
-		.st('fill', d => fillMatches[d.color] || fallbackColor);
+		.st('fill', d => fillMatches[d.color] || fallbackColor)
+		.st('stroke', d => fillMatches[d.color] || fallbackColor);
 
 	$path.exit().remove();
 
@@ -147,7 +163,13 @@ function updateText(next) {
 	// const name = $currentShoe.select('.name').html()
 	// v2
 	d3.selectAll('.details-text').classed('is-visible', (d, i) => i === next)
-
+	d3.selectAll('.big-num').text(function() {
+		if (next.toString().length > 1) {
+			return next + 1
+		} else {
+			return "0" + (next + 1).toString()
+		}
+	})
 	// const jordanNum = `jordan${next}`;
 	// const singleShoe = jordanDetails.filter(d => d.shoeID == jordanNum);
 	// const dateUpdate = d3.selectAll('.date');
@@ -155,6 +177,94 @@ function updateText(next) {
 	// const designerUpdate = d3.selectAll('.designer');
 	// const nameUpdate = d3.selectAll('.jordanName');
 	// const infoUpdate = d3.selectAll('.infoName');
+}
+
+function setupObjectSelect(){
+  const dragSection = d3.select('.drag')
+  const items = dragSection.selectAll('.click-item')
+    .on('click', handleObjectClick)
+}
+
+function handleObjectClick(){
+  const item = d3.select(this)
+  const activeState = item.classed('is-active')
+	const notActive = item.classed('not-selected')
+
+  $navLi.classed('is-active', false)
+
+  item.classed('is-active', !activeState)
+	d3.selectAll('li:not(.is-active)').classed('not-selected', !notActive)
+  const name = item.at('data-type')
+  const id = item.at('data-id')
+}
+
+function prefix(prop) {
+	return [prop, `webkit-${prop}`, `ms-${prop}`];
+}
+
+function handleDrag() {
+	const { x } = d3.event;
+	const diff = dragPosX - x;
+	dragPosX = x;
+
+	const prev = +$navUl.at('data-x');
+	const cur = Math.max(0, Math.min(prev + diff, dragMax));
+
+	const index = Math.min(
+		Math.max(0, Math.floor(cur / dragMax * navCount)),
+		navCount - 1
+	);
+	const trans = (cur - dragOffset) * -1;
+
+	$navLi.classed('is-current', (d, i) => i === index);
+	$navUl.at('data-x', cur);
+
+	const prefixes = prefix('transform');
+	prefixes.forEach(pre => {
+		const transform = `translateX(${trans}px)`;
+		$navUl.node().style[pre] = transform;
+	});
+}
+
+function handleDragStart() {
+	const { x } = d3.event;
+	dragPosX = x;
+	$navUl.classed('is-dragend', false);
+	$nav.classed('is-drag', true);
+}
+
+function handleDragEnd() {
+	const cur = +$navUl.at('data-x');
+	const index = Math.min(
+		Math.max(0, Math.floor(cur / dragMax * navCount)),
+		navCount - 1
+	);
+	const x = index * navSize;
+	const trans = (x - dragOffset) * -1;
+
+	$navUl.at('data-x', x);
+
+	const prefixes = prefix('transform');
+	prefixes.forEach(pre => {
+		const transform = `translateX(${trans}px)`;
+		$navUl.node().style[pre] = transform;
+	});
+
+	$navUl.classed('is-dragend', true);
+	$nav.classed('is-drag', false);
+}
+
+
+function setupNav() {
+	const drag = d3.drag();
+	$navUl.call(
+		d3
+			.drag()
+			.on('drag', handleDrag)
+			.on('start', handleDragStart)
+			.on('end', handleDragEnd)
+	);
+  $navLi.on('click', handleObjectClick)
 }
 
 function advanceShoe() {
@@ -173,7 +283,8 @@ function init() {
 			jordanDetails = data[1];
 			// render graphic stuff now
 			flubberAnimateAll({ prev: currentShoe, next: currentShoe + 1 });
-			advanceShoe();
+			advanceShoe()
+			setupNav()
 		})
 		.catch(console.log);
 }

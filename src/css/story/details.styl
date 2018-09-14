@@ -27,9 +27,9 @@
 
       .deet-catagory
         font-family $raj
-        color $gray
+        color $white
         text-transform uppercase
-        border-bottom 1px solid $off-white
+        border-bottom 1px solid darken(#4729fc, 20)
         padding 0 0 0.5rem 0
         set-type-size('x-small', true)
         line-height 0.75
@@ -40,12 +40,26 @@
           margin 0
           text-transform none
           set-type-size('medium', true)
-          color $off-black
+          color $white
 
     .long-desc
       width calc(100% - 15rem)
-      border-left 1px solid $off-white
+      border-left 1px solid darken(#4729fc, 20)
       padding-left 2rem
+
+      a
+        background-repeat no-repeat
+        transition background-position .08s ease-out
+        background-image linear-gradient(180deg,transparent 0,darken(#4729fc, 20) 0)
+        background-position 0 1em
+        box-shadow none
+        padding 0
+        border-bottom none
+        text-decoration none
+        color $white
+        pointer-events all
+        &:hover
+          background-position 0 0em
 
       .jordanName
         font-family $raj
@@ -56,6 +70,7 @@
 
       .jordanInfo
         font-family $atlas
-        color $gray-dark
+        color $white
         padding 0
         margin 0
+        line-height 2

@@ -22,10 +22,17 @@ function setupStickyHeader() {
 	if ($header.classed('is-sticky')) {
 		const $menu = $body.select('.header__menu');
 		const $toggle = $body.select('.header__toggle');
+		const $infoToggle = $body.select('.header__infoToggle');
+		const $info = $body.select('.header__info')
 		$toggle.on('click', () => {
 			const visible = $menu.classed('is-visible');
 			$menu.classed('is-visible', !visible);
 			$toggle.classed('is-visible', !visible);
+		});
+		$infoToggle.on('click', () => {
+			const visible = $info.classed('is-visible');
+			$info.classed('is-visible', !visible);
+			$infoToggle.classed('is-visible', !visible);
 		});
 	}
 }

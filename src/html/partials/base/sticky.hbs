@@ -12,7 +12,24 @@
 		<a class='' href='https://pudding.cool/about/' target='_blank' onclick='trackOutboundLink("https://pudding.cool/about"); return false;'>About</a>
 	</p>
 </div>
+<div class='header__info tk-atlas'>
+	<div class='info__inset'>
+		<p class='info__byline tk-atlas'>By
+			<a href='{{meta.author.url}}' target='_blank'>
+				<strong>{{meta.author.name}}</strong>
+			</a>
+		</p>
+		<h5>Data and methodology</h5>
+		{{#each copy.info}}
+			<p>{{{value}}}</p>
+		{{/each}}
+	</div>
+</div>
 <btn class='header__toggle'>
 	<span>@@include('menu.svg')</span>
+	<span>@@include('x.svg')</span>
+</btn>
+<btn class='header__infoToggle'>
+	<span>@@include('info.svg')</span>
 	<span>@@include('x.svg')</span>
 </btn>
