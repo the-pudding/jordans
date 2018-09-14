@@ -24,7 +24,7 @@ const dataSrc = ['assets/data/jordans.json', 'assets/data/jordanDetails.csv'];
 //colors
 const fallbackColor = '#000';
 const fillMatches = {
-	st0: '#ffffff', //FIX GRADIENTS
+	st0: 'url(#gradientWhite)', //FIX GRADIENTS
 	st1: '#D81F28',
 	st2: '#58595B',
 	st3: '#414042',
@@ -39,10 +39,8 @@ const fillMatches = {
 	st12: '#FFFFFF',
 	st13: '#F26C4B',
 	st14: '#EF412C',
-	st15: 'url(#j30_x5F_6_2_)',
-	st16: 'url(#j30_x5F_4_2_)',
-	st17: 'url(#j30_x5F_3_1_)',
-	st18: 'url(#j31_x5F_3_1_)'
+	st15: 'url(#gradientCosmos)',
+	st18: 'url(#gradientRedBlack)'
 };
 
 function resize() {}
