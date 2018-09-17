@@ -2,7 +2,7 @@ nav
 	z-index set-index(overlay)
 	overflow hidden
 	width 100%
-	margin 0 auto 1rem auto
+	margin 0 auto 0 auto
 	position sticky
 	padding 0 1rem
 	&:after
@@ -37,7 +37,7 @@ nav
 	ul
 		display flex
 		flex-direction row
-		height 7rem
+		height 6.5rem
 	li
 		display flex
 		flex-direction column
@@ -54,8 +54,10 @@ nav
 		user-select none
 
 		&.is-active
-			border-bottom 3px solid darken(#4729fc, 20)	
+			border-bottom 3px solid darken(#4729fc, 20)
 			opacity 1
+			transform scale(1)
+		&:hover
 			transform scale(1)
 
 		.image
@@ -75,3 +77,29 @@ nav
 
 		.object-name
 			font-weight 700
+
+	.autoplay
+		color $white
+		text-transform uppercase
+		background-color transparent
+		font-family $atlas
+		font-weight 700
+		padding 0.5rem 0.75rem
+		border-radius 0.5rem
+		margin 1rem 0 0 0
+		display flex
+		justify-content space-between
+
+		.play-pause
+			height 35px
+			width 35px
+			background-color darken(#4729fc, 20)
+			border-radius 50%
+			padding 0.5rem
+			margin-left 0.5rem
+
+		p
+			margin 0.5rem 0 0 0
+			width 3rem
+			text-align left
+			set-type-size('small', true)

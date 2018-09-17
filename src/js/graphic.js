@@ -129,6 +129,7 @@ function flubberAnimateAll({ prev, next }) {
 	$path.exit().remove();
 
 	currentShoe = next;
+
 	hideImage(prev);
 	revealImage(next);
 	updateText(next);
@@ -168,10 +169,6 @@ function hideImage(prev) {
 }
 
 function updateText(next) {
-	// v1
-	// const $currentShoe = d3.selectAll('.shoe').filter((d, i) => i === next)
-	// const name = $currentShoe.select('.name').html()
-	// v2
 	d3.selectAll('.details-text').classed('is-visible', (d, i) => i === next);
 	d3.selectAll('.big-num').text(() => {
 		if (next.toString().length > 1) {
@@ -179,13 +176,6 @@ function updateText(next) {
 		}
 		return `0${(next + 1).toString()}`;
 	});
-	// const jordanNum = `jordan${next}`;
-	// const singleShoe = jordanDetails.filter(d => d.shoeID == jordanNum);
-	// const dateUpdate = d3.selectAll('.date');
-	// const priceUpdate = d3.selectAll('.price');
-	// const designerUpdate = d3.selectAll('.designer');
-	// const nameUpdate = d3.selectAll('.jordanName');
-	// const infoUpdate = d3.selectAll('.infoName');
 }
 
 function handleShoeClick() {
@@ -202,7 +192,7 @@ function handleShoeClick() {
 
 	if (timer) {
 		timer.stop();
-		$autoplayBtn.text('Play');
+		$autoplayBtn.html('<p>Play</p><div class="play-pause"><img src="assets/images/play.svg"></div>');
 		timer = null;
 	}
 
@@ -273,17 +263,22 @@ function advanceShoe() {
 function handleAutoplayClick() {
 	const shouldPlay = $autoplayBtn.text() === 'Play';
 	if (shouldPlay) {
-		$autoplayBtn.text('Pause');
+		$autoplayBtn.html('<p>Pause</p><div class="play-pause"><img src="assets/images/pause.svg"></div>');
 		advanceShoe();
 	} else if (!shouldPlay && timer) {
-		$autoplayBtn.text('Play');
+		$autoplayBtn.html('<p>Play</p><div class="play-pause"><img src="assets/images/play.svg"></div>');
 		timer.stop();
 		timer = null;
 	}
 }
 
-function setupNav() {
+function setUpFirstShoe() {
 	$navLi.classed('is-active', (d, i) => i === 0);
+	revealImage(0)
+	updateText(0)
+}
+
+function setupNav() {
 
 	$navUl.call(
 		d3
@@ -305,6 +300,7 @@ function init() {
 		.then(data => {
 			jordanData = data[0];
 			setupNav();
+			setUpFirstShoe();
 			timer = d3.timeout(advanceShoe, TIMEOUT_DURATION);
 		})
 		.catch(console.log);

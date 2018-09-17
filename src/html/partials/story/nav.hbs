@@ -1,5 +1,4 @@
 <nav class='tk-atlas small'>
-	<button class='autoplay'>Pause</button>
   <ul>
     {{#each copy.nav}}
       <li class='{{object}}' data-index='{{@index}}' data-type='{{object}}' data-id='{{id}}'>
@@ -10,4 +9,8 @@
         </div>
     {{/each}}
   </ul>
+	<button class='autoplay'>
+		<p>Pause</p>
+		<div class='play-pause'><img src='assets/images/pause.svg'></div>
+	</button>
 </nav>

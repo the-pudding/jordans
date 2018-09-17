@@ -13,10 +13,17 @@ body
       max-width 960px
       margin 0 auto 1rem auto
       width 100%
-      height auto
+      height 30vh
+      padding 0 1rem
       position relative
       display flex
       flex-direction column
+      +mq('bp-3')
+        height 40vh
+      +mq('bp-4')
+        height 50vh
+      +mq('bp-5')
+        height 60vh
 
       .shoe-wrapper
 
@@ -24,12 +31,12 @@ body
 
           .details-overlay
             position absolute
-            width 100%
+            width 95%
             opacity 0
 
         svg
           position absolute
-          width 100%
+          width 95%
 
           g
             display none
@@ -83,9 +90,12 @@ body
 
           .st0
             fill white
+            stroke white
 
           .st1
             fill #D81F28
+            stroke #D81F28
 
           .st2
             fill #58595B
+            stroke #58595B
