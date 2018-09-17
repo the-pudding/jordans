@@ -29,17 +29,21 @@ const fillMatches = {
 	st2: '#58595B',
 	st3: '#414042',
 	st4: '#BCBEC0',
-	st5: '#E31E26',
-	st6: '#282829',
-	st7: '#939598',
-	st8: '#D1D3D4',
-	st9: '#B42C30',
-	st10: '#F3B81E',
-	st11: '#C7E9F1',
-	st12: '#FFFFFF',
-	st13: '#F26C4B',
-	st14: '#EF412C',
-	st15: 'url(#gradientCosmos)',
+	st5: '#E6E7E8',
+	st6: '#E31E26',
+	st7: '#282829',
+	st8: '#0D0D0D',
+	st9: '#E6E6E6',
+	st10: '#FFFFFF',
+	st11: '#939598',
+	st12: '#D1D3D4',
+	st13: '#1A1A1A',
+	st14: '#B42C30',
+	st15: '#F3B81E',
+	st16: '#C7E9F1',
+	st17: '#F26C4B',
+	st18: '#EF412C',
+	st18: 'url(#gradientCosmos)',
 	st18: 'url(#gradientRedBlack)'
 };
 
@@ -273,8 +277,8 @@ function advanceShoe() {
 }
 
 function init() {
-	// pathsToJSON();
-	removePaths();
+	pathsToJSON();
+	//removePaths();
 	loadData()
 		.then(data => {
 			jordanData = data[0];
