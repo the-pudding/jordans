@@ -1,7 +1,8 @@
 <nav class='tk-atlas small'>
+	<button class='autoplay'>Pause</button>
   <ul>
     {{#each copy.nav}}
-      <li class='{{object}}' data-type='{{object}}' data-id='{{id}}'>
+      <li class='{{object}}' data-index='{{@index}}' data-type='{{object}}' data-id='{{id}}'>
         <div class='object-image'>
           <!-- <div class='image' style='background-image: url(assets/images/{{id}}.png)'</div> -->
           <img class='image' src='assets/images/thumbs/{{id}}-thumb.png'>

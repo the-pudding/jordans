@@ -2,29 +2,32 @@
 import * as flubber from 'flubber';
 import tracker from './utils/tracker';
 
-//selections
-const $nav = d3.select('nav')
-const $navUl = $nav.select('nav ul')
-const $navLi = $navUl.selectAll('li')
+const TIMEOUT_DURATION = 5000;
 
-//for nav
-let dragPosX = 0
-const navCount = $navLi.size()
-const navSize = $navLi.node().offsetWidth
-const totalW = navCount * navSize
-const dragMax = totalW - navSize
-const dragOffset = 0
+// selections
+const $nav = d3.select('nav');
+const $navUl = $nav.select('nav ul');
+const $navLi = $navUl.selectAll('li');
+const $autoplayBtn = $nav.select('.autoplay');
 
-//data
+// for nav
+let dragPosX = 0;
+const navCount = $navLi.size();
+const navSize = $navLi.node().offsetWidth;
+const totalW = navCount * navSize;
+const dragMax = totalW - navSize;
+const dragOffset = 0;
+
+// data
 let jordanData = [];
-let jordanDetails = [];
-let currentShoe = 0;
-const dataSrc = ['assets/data/jordans.json', 'assets/data/jordanDetails.csv'];
 
-//colors
+let currentShoe = 0;
+const dataSrc = ['assets/data/jordans.json'];
+
+// colors
 const fallbackColor = '#000';
 const fillMatches = {
-	st0: 'url(#gradientWhite)', //FIX GRADIENTS
+	st0: 'url(#gradientWhite)', // FIX GRADIENTS
 	st1: '#D81F28',
 	st2: '#58595B',
 	st3: '#414042',
@@ -46,6 +49,8 @@ const fillMatches = {
 	st18: 'url(#gradientCosmos)',
 	st18: 'url(#gradientRedBlack)'
 };
+
+let timer = null;
 
 function resize() {}
 
@@ -78,6 +83,9 @@ function getPaths(g) {
 }
 
 function flubberAnimateAll({ prev, next }) {
+	// update nav
+	$navLi.classed('is-active', (d, i) => i === next);
+
 	const j1 = jordanData[prev].map(d => d.coordinates).reverse();
 	const j2 = jordanData[next].map(d => d.coordinates).reverse();
 	const j2colors = jordanData[next].map(d => d.color).reverse();
@@ -164,14 +172,13 @@ function updateText(next) {
 	// const $currentShoe = d3.selectAll('.shoe').filter((d, i) => i === next)
 	// const name = $currentShoe.select('.name').html()
 	// v2
-	d3.selectAll('.details-text').classed('is-visible', (d, i) => i === next)
-	d3.selectAll('.big-num').text(function() {
+	d3.selectAll('.details-text').classed('is-visible', (d, i) => i === next);
+	d3.selectAll('.big-num').text(() => {
 		if (next.toString().length > 1) {
-			return next + 1
-		} else {
-			return "0" + (next + 1).toString()
+			return next + 1;
 		}
-	})
+		return `0${(next + 1).toString()}`;
+	});
 	// const jordanNum = `jordan${next}`;
 	// const singleShoe = jordanDetails.filter(d => d.shoeID == jordanNum);
 	// const dateUpdate = d3.selectAll('.date');
@@ -181,23 +188,25 @@ function updateText(next) {
 	// const infoUpdate = d3.selectAll('.infoName');
 }
 
-function setupObjectSelect(){
-  const dragSection = d3.select('.drag')
-  const items = dragSection.selectAll('.click-item')
-    .on('click', handleObjectClick)
-}
+function handleShoeClick() {
+	const item = d3.select(this);
+	const activeState = item.classed('is-active');
 
-function handleObjectClick(){
-  const item = d3.select(this)
-  const activeState = item.classed('is-active')
-	const notActive = item.classed('not-selected')
+	$navLi.classed('is-active', false);
+	item.classed('is-active', !activeState);
 
-  $navLi.classed('is-active', false)
+	// d3.selectAll('li:not(.is-active)').classed('not-selected', !notActive);
+	// const name = item.at('data-type');
+	// const id = item.at('data-id');
+	const next = +item.at('data-index');
 
-  item.classed('is-active', !activeState)
-	d3.selectAll('li:not(.is-active)').classed('not-selected', !notActive)
-  const name = item.at('data-type')
-  const id = item.at('data-id')
+	if (timer) {
+		timer.stop();
+		$autoplayBtn.text('Play');
+		timer = null;
+	}
+
+	flubberAnimateAll({ prev: currentShoe, next });
 }
 
 function prefix(prop) {
@@ -213,7 +222,7 @@ function handleDrag() {
 	const cur = Math.max(0, Math.min(prev + diff, dragMax));
 
 	const index = Math.min(
-		Math.max(0, Math.floor(cur / dragMax * navCount)),
+		Math.max(0, Math.floor((cur / dragMax) * navCount)),
 		navCount - 1
 	);
 	const trans = (cur - dragOffset) * -1;
@@ -238,7 +247,7 @@ function handleDragStart() {
 function handleDragEnd() {
 	const cur = +$navUl.at('data-x');
 	const index = Math.min(
-		Math.max(0, Math.floor(cur / dragMax * navCount)),
+		Math.max(0, Math.floor((cur / dragMax) * navCount)),
 		navCount - 1
 	);
 	const x = index * navSize;
@@ -256,9 +265,26 @@ function handleDragEnd() {
 	$nav.classed('is-drag', false);
 }
 
+function advanceShoe() {
+	flubberAnimateAll({ prev: currentShoe, next: currentShoe + 1 });
+	timer = d3.timeout(advanceShoe, TIMEOUT_DURATION);
+}
+
+function handleAutoplayClick() {
+	const shouldPlay = $autoplayBtn.text() === 'Play';
+	if (shouldPlay) {
+		$autoplayBtn.text('Pause');
+		advanceShoe();
+	} else if (!shouldPlay && timer) {
+		$autoplayBtn.text('Play');
+		timer.stop();
+		timer = null;
+	}
+}
 
 function setupNav() {
-	const drag = d3.drag();
+	$navLi.classed('is-active', (d, i) => i === 0);
+
 	$navUl.call(
 		d3
 			.drag()
@@ -266,27 +292,20 @@ function setupNav() {
 			.on('start', handleDragStart)
 			.on('end', handleDragEnd)
 	);
-  $navLi.on('click', handleObjectClick)
-}
+	$navLi.on('click', handleShoeClick);
 
-function advanceShoe() {
-	setTimeout(() => {
-		flubberAnimateAll({ prev: currentShoe, next: currentShoe + 1 });
-		advanceShoe();
-	}, 5000);
+	$autoplayBtn.on('click', handleAutoplayClick);
 }
 
 function init() {
-	pathsToJSON();
-	//removePaths();
+	// pathsToJSON();
+	// TODO delete this before production
+	removePaths();
 	loadData()
 		.then(data => {
 			jordanData = data[0];
-			jordanDetails = data[1];
-			// render graphic stuff now
-			flubberAnimateAll({ prev: currentShoe, next: currentShoe + 1 });
-			advanceShoe()
-			setupNav()
+			setupNav();
+			timer = d3.timeout(advanceShoe, TIMEOUT_DURATION);
 		})
 		.catch(console.log);
 }
