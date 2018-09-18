@@ -15,12 +15,12 @@
 <div class='header__info tk-atlas'>
 	<div class='info__inset'>
 		<p class='info__byline tk-atlas'>By
-			<a href='{{meta.author.url}}' target='_blank'>
-				<strong>{{meta.author.name}}</strong>
+			<a href='{{@root.meta.author.url}}' target='_blank'>
+				<strong>{{@root.meta.author.name}}</strong>
 			</a>
 		</p>
 		<h5>Data and methodology</h5>
-		{{#each copy.info}}
+		{{#each @root.copy.info}}
 			<p>{{{value}}}</p>
 		{{/each}}
 	</div>

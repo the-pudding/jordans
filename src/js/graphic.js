@@ -293,7 +293,7 @@ function setupNav() {
 }
 
 function init() {
-	// pathsToJSON();
+	//pathsToJSON();
 	// TODO delete this before production
 	removePaths();
 	loadData()

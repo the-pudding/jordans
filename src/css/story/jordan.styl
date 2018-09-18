@@ -1,101 +1,109 @@
 /* CUSTOM STORY STYLE */
-body
-  overflow-x hidden
-  height 100vh
+#content
+  position absolute
+  width 100%
+  z-index 999
+  padding-top 3.5rem
+  +mq('bp-4')
+    padding-top 4rem
 
-  #content
-    position absolute
+  .jordan
+    max-width 960px
+    margin 0 auto 1rem auto
     width 100%
-    z-index 999
-    padding-top 5rem
-
-    .jordan
-      max-width 960px
-      margin 0 auto 1rem auto
-      width 100%
+    height 10vh
+    padding 0 1rem
+    position relative
+    top -1rem
+    display flex
+    flex-direction column
+    +mq('bp-2')
+      height 20vh
+    +mq('bp-3')
       height 30vh
-      padding 0 1rem
+    +mq('bp-4')
+      height 40vh
+    +mq('bp-5')
+      height 50vh
+
+    .shoe-wrapper
+      display inline-block
+      vertical-align middle
+      max-width 960px
+      width 100%
       position relative
-      display flex
-      flex-direction column
-      +mq('bp-3')
-        height 40vh
-      +mq('bp-4')
-        height 50vh
-      +mq('bp-5')
-        height 60vh
+      margin 0 auto
+      padding 0 1rem
 
-      .shoe-wrapper
+      .images
 
-        .images
-
-          .details-overlay
-            position absolute
-            width 95%
-            opacity 0
-
-        svg
+        .details-overlay
           position absolute
-          width 95%
+          width calc(100% - 1rem)
+          opacity 0
 
-          g
-            display none
+      svg
+        position absolute
+        width calc(100% - 1rem)
 
-          #jordan1
-            display block
+        g
+          display none
 
-          path
-            opacity 1
-            fill #000000
+        #jordan1
+          display block
 
-          #gradientWhite
-            --color-stop-1 #FFFFFF
-            --color-stop-2 #FCFCFC
-            --color-stop-3 #F4F4F4
-            --color-stop-4 #E6E6E6
-            --color-stop-5 #E6E6E6
+        path
+          opacity 1
+          fill #000000
 
-          #gradientCosmos
-            --color-stop-1 #000000
-            --color-stop-2 #141414
-            --color-stop-3 #444444
-            --color-stop-4 #717171
-            --color-stop-5 #979797
-            --color-stop-6 #B7B7B7
-            --color-stop-7 #D2D2D2
-            --color-stop-8 #E6E6E6
-            --color-stop-9 #F4F4F4
-            --color-stop-10 #FCFCFC
-            --color-stop-11 #FFFFFF
+        #gradientWhite
+          --color-stop-1 #FFFFFF
+          --color-stop-2 #FCFCFC
+          --color-stop-3 #F4F4F4
+          --color-stop-4 #E6E6E6
+          --color-stop-5 #E6E6E6
 
-          #gradientRedBlack
-            --color-stop-1 #E31E26
-            --color-stop-2 #CB412F
-            --color-stop-3 #A8543E
-            --color-stop-4 #895646
-            --color-stop-5 #705248
-            --color-stop-6 #594843
-            --color-stop-7 #443B39
-            --color-stop-8 #292626
-            --color-stop-9 #0D0D0D
-            --color-stop-10 #000000
-            --color-stop-11 #000000
-            --color-stop-12 #302C2B
-            --color-stop-13 #725248
-            --color-stop-14 #995643
-            --color-stop-15 #B94E37
-            --color-stop-16 #CF3C2C
-            --color-stop-17 #DD2927
-            --color-stop-18 #E31E26
+        #gradientCosmos
+          --color-stop-1 #000000
+          --color-stop-2 #141414
+          --color-stop-3 #444444
+          --color-stop-4 #717171
+          --color-stop-5 #979797
+          --color-stop-6 #B7B7B7
+          --color-stop-7 #D2D2D2
+          --color-stop-8 #E6E6E6
+          --color-stop-9 #F4F4F4
+          --color-stop-10 #FCFCFC
+          --color-stop-11 #FFFFFF
 
-          .st0
-            fill white
-            stroke white
+        #gradientRedBlack
+          --color-stop-1 #E31E26
+          --color-stop-2 #CB412F
+          --color-stop-3 #A8543E
+          --color-stop-4 #895646
+          --color-stop-5 #705248
+          --color-stop-6 #594843
+          --color-stop-7 #443B39
+          --color-stop-8 #292626
+          --color-stop-9 #0D0D0D
+          --color-stop-10 #000000
+          --color-stop-11 #000000
+          --color-stop-12 #302C2B
+          --color-stop-13 #725248
+          --color-stop-14 #995643
+          --color-stop-15 #B94E37
+          --color-stop-16 #CF3C2C
+          --color-stop-17 #DD2927
+          --color-stop-18 #E31E26
 
-          .st1
-            fill #D81F28
-            stroke #D81F28
+        .st0
+          fill white
+          stroke white
 
-          .st2
-            fill #58595B
-            stroke #58595B
+        .st1
+          fill #D81F28
+          stroke #D81F28
+
+        .st2
+          fill #58595B
+          stroke #58595B

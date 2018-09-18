@@ -1,23 +1,46 @@
 .details-wrapper
   max-width 960px
-  margin 0 auto
+  width 100%
   position relative
-  padding 0 2rem
   user-select auto
+  margin 0 auto
+  +mq('bp-5')
+    margin 5rem auto 0 auto
 
   .details-text
     width 100%
-    display flex
-    flex-direction row
-    justify-content space-between
+    max-width 960px
+    margin 0 auto
     position absolute
     opacity 0
+    padding 0 2rem
     &.is-visible
       opacity 1
 
+    .mobile-hide
+      display none
+      +mq('bp-4')
+        display inline-block
+
+    .mobile-show
+      font-family $raj
+      text-transform uppercase
+      set-type-size('x-large', true)
+      padding 0
+      margin 0
+      font-weight 500
+      display inline-block
+      +mq('bp-4')
+        display none
+
     .short-deets
-      width 13rem
-      margin-right 2rem
+      width 100%
+      margin-right 0
+      float none
+      +mq('bp-4')
+        float left
+        width 13rem
+        margin-right 2rem
 
       .jordanNumber
         font-family $raj
@@ -45,9 +68,17 @@
           color $white
 
     .long-desc
-      border-left 1px solid darken(#4729fc, 20)
-      padding-left 2rem
-      width calc(100% - 15rem)
+      border-left none
+      padding-left 0
+      width 100%
+      float none
+      margin-top 2rem
+      +mq('bp-4')
+        float left
+        border-left 1px solid darken(#4729fc, 20)
+        padding-left 2rem
+        margin-top 0
+        width calc(100% - 15rem)
 
       a
         background-repeat no-repeat

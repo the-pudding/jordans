@@ -84,8 +84,7 @@ header.is-sticky
 		position fixed
 		top 0
 		left 0
-		//transform translateY(-100%)
-		opacity 0
+		transform translateX(-100%)
 		height 100vh
 		width 100%
 		//max-width 30rem
@@ -97,9 +96,7 @@ header.is-sticky
 		transition transform 200ms ease-in-out
 
 		&.is-visible
-			opacity 1
-			transition 200ms ease-in
-			//transform translateY(0)
+			transform translateX(0)
 
 		.info__inset
 			border-top 3px solid $gray-dark
