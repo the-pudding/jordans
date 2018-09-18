@@ -14,15 +14,15 @@
 </div>
 <div class='header__info tk-atlas'>
 	<div class='info__inset'>
+		<h5>Data and methodology</h5>
+		{{#each @root.copy.info}}
+			<p>{{{value}}}</p>
+		{{/each}}
 		<p class='info__byline tk-atlas'>By
 			<a href='{{@root.meta.author.url}}' target='_blank'>
 				<strong>{{@root.meta.author.name}}</strong>
 			</a>
 		</p>
-		<h5>Data and methodology</h5>
-		{{#each @root.copy.info}}
-			<p>{{{value}}}</p>
-		{{/each}}
 	</div>
 </div>
 <btn class='header__toggle'>
