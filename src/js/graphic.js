@@ -174,10 +174,12 @@ function hideImage(prev) {
 function updateText(next) {
 	d3.selectAll('.details-text').classed('is-visible', (d, i) => i === next);
 	d3.selectAll('.big-num').text(() => {
-		if (next.toString().length > 1) {
+		if ((next+1).toString().length > 1) {
+			console.log(next, currentShoe)
 			return next + 1;
+		} else {
+			return `0${(next + 1).toString()}`;
 		}
-		return `0${(next + 1).toString()}`;
 	});
 }
 
