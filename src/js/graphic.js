@@ -29,25 +29,27 @@ const fallbackColor = '#000';
 const fillMatches = {
 	st0: 'url(#gradientWhite)', // FIX GRADIENTS
 	st1: '#D81F28',
-	st2: '#58595B',
-	st3: '#414042',
-	st4: '#BCBEC0',
+	st2: '#BCBEC0',
+	st3: '#58595B',
+	st4: '#414042',
 	st5: '#E6E7E8',
-	st6: '#E31E26',
-	st7: '#282829',
-	st8: '#0D0D0D',
-	st9: '#E6E6E6',
-	st10: '#FFFFFF',
-	st11: '#939598',
-	st12: '#D1D3D4',
-	st13: '#1A1A1A',
-	st14: '#B42C30',
-	st15: '#F3B81E',
-	st16: '#C7E9F1',
-	st17: '#F26C4B',
-	st18: '#EF412C',
-	st18: 'url(#gradientCosmos)',
-	st18: 'url(#gradientRedBlack)'
+	st6: '#282829',
+	st7: '#E31E26',
+	st8: '#FFFFFF',
+	st9: '#F3B81E',
+	st10: '#B42C30',
+	st12: '#939598',
+	st13: '#D1D3D4',
+	st14: '#B3B3B3',
+	st15: '#6D6E71',
+	st16: '#333333',
+	st17: '#0368AB',
+	st18: '#1B75BC',
+	st19: '#C7E9F1',
+	st20: '#F26C4B',
+	st21: '#EF412C',
+	st22: 'url(#gradientCosmos)',
+	st23: 'url(#gradientRedBlack)'
 };
 
 let timer = null;
@@ -293,9 +295,9 @@ function setupNav() {
 }
 
 function init() {
-	//pathsToJSON();
+	pathsToJSON();
 	// TODO delete this before production
-	removePaths();
+	//removePaths();
 	loadData()
 		.then(data => {
 			jordanData = data[0];
