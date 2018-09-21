@@ -88,7 +88,7 @@ function getPaths(g) {
 
 function flubberAnimateAll({ prev, next }) {
 	// update nav
-	$navLi.classed('is-active', (d, i) => i === next);
+	$navLi.classed('is-active', (d, i) => i === next - 1);
 
 	const j1 = jordanData[prev].map(d => d.coordinates).reverse();
 	const j2 = jordanData[next].map(d => d.coordinates).reverse();
@@ -112,7 +112,7 @@ function flubberAnimateAll({ prev, next }) {
 	}));
 
 	const $path = d3
-		.select('#jordan1')
+		.select('#jordan0')
 		.selectAll('path')
 		.data(combinedShoes);
 
@@ -135,7 +135,7 @@ function flubberAnimateAll({ prev, next }) {
 	currentShoe = next;
 
 	if (currentShoe == 31) {
-		nextShoe = 0
+		nextShoe = 1
 	} else {
 		nextShoe = currentShoe + 1;
 	}
@@ -144,7 +144,7 @@ function flubberAnimateAll({ prev, next }) {
 
 	hideImage(prev);
 	revealImage(next);
-	updateText(next);
+	updateText(next - 1);
 }
 
 function loadData() {
@@ -164,7 +164,7 @@ function removePaths() {
 }
 
 function revealImage(next) {
-	const currentImg = `#j${next + 1}-image`;
+	const currentImg = `#j${next}-image`;
 	d3.selectAll(currentImg)
 		.transition()
 		.duration(1500)
@@ -173,7 +173,7 @@ function revealImage(next) {
 }
 
 function hideImage(prev) {
-	const currentImg = `#j${prev + 1}-image`;
+	const currentImg = `#j${prev}-image`;
 	d3.selectAll(currentImg)
 		.transition()
 		.duration(0)
@@ -181,6 +181,7 @@ function hideImage(prev) {
 }
 
 function updateText(next) {
+	d3.selectAll('.intro-text').classed('is-hidden', true)
 	d3.selectAll('.details-text').classed('is-visible', (d, i) => i === next);
 	d3.selectAll('.big-num').text(() => {
 		if ((next+1).toString().length > 1) {
@@ -201,7 +202,7 @@ function handleShoeClick() {
 	// d3.selectAll('li:not(.is-active)').classed('not-selected', !notActive);
 	// const name = item.at('data-type');
 	// const id = item.at('data-id');
-	const next = +item.at('data-index');
+	const next = +item.at('data-index') + 1;
 
 	if (timer) {
 		timer.stop();
@@ -286,9 +287,7 @@ function handleAutoplayClick() {
 }
 
 function setUpFirstShoe() {
-	$navLi.classed('is-active', (d, i) => i === 0);
 	revealImage(0)
-	updateText(0)
 }
 
 function setupNav() {

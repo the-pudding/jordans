@@ -38,6 +38,19 @@
         margin 0 auto
         padding 0 1rem
 
+        .intro-text
+          position absolute
+          width 100%
+          top 5rem
+          &.is-hidden
+            display none
+
+          p
+            font-family $atlas
+            text-align center
+            color $white
+            set-type-size('x-large', true)
+
         .images
 
           .details-overlay
@@ -52,7 +65,7 @@
           g
             display none
 
-          #jordan1
+          #jordan0
             display block
 
           path
@@ -95,14 +108,14 @@
             --color-stop-13 #D92226
             --color-stop-14 #E31E26
 
-          .st0
-            fill white
-            stroke white
-
-          .st1
-            fill #D81F28
-            stroke #D81F28
-
-          .st2
+          .st3
             fill #58595B
-            stroke #58595B
+
+          .st4
+            fill #414042
+
+          .st5
+            fill #E6E7E8
+
+          .st7
+            fill #E31E26
