@@ -61,18 +61,6 @@ const fillMatches = {
 let timer = null;
 
 function resize() {
-	let contentWidth = $content.node().clientWidth;
-	let contentHeight = null
-	if (contentWidth < 1000 && contentWidth > 800) {
-		contentHeight = contentWidth*1.5
-	}	else if (contentWidth < 800 && contentWidth < 500) {
-		contentHeight = contentWidth*2
-	} else {
-		contentHeight = contentWidth*1.25
-	}
-	// $content.st('height', contentHeight)
-	// $contentBG.st('height', contentHeight + 50)
-
 	let widthSVG = $svg.node().clientWidth;
 	let heightSVG = widthSVG/1.4
 	$jordanBox.st('height', heightSVG)

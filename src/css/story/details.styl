@@ -11,8 +11,11 @@
     display none
     padding 0 2rem
     &.is-visible
-      display block
+      display flex
+      flex-direction column
       z-index 2000
+      +mq('bp-4')
+        flex-direction row
 
     .mobile-hide
       display none
@@ -33,9 +36,7 @@
     .short-deets
       width 100%
       margin-right 0
-      float none
       +mq('bp-4')
-        float left
         width 13rem
         margin-right 2rem
 
@@ -68,10 +69,8 @@
       border-left none
       padding-left 0
       width 100%
-      float none
       margin-top 2rem
       +mq('bp-4')
-        float left
         border-left 1px solid darken(#4729fc, 20)
         padding-left 2rem
         margin-top 0
