@@ -9,8 +9,10 @@ const $nav = d3.select('nav');
 const $navUl = $nav.select('nav ul');
 const $navLi = $navUl.selectAll('li');
 const $autoplayBtn = $nav.select('.autoplay');
-const $svg = d3.select('#shapes')
-const $jordanBox = d3.select('.jordan')
+const $svg = d3.select('#shapes');
+const $jordanBox = d3.select('.jordan');
+const $content = d3.select('#content');
+const $contentBG = d3.select('.content-bg');
 
 // for nav
 let dragPosX = 0;
@@ -59,6 +61,18 @@ const fillMatches = {
 let timer = null;
 
 function resize() {
+	let contentWidth = $content.node().clientWidth;
+	let contentHeight = null
+	if (contentWidth < 1000 && contentWidth > 800) {
+		contentHeight = contentWidth*1.5
+	}	else if (contentWidth < 800 && contentWidth < 500) {
+		contentHeight = contentWidth*2
+	} else {
+		contentHeight = contentWidth*1.25
+	}
+	$content.st('height', contentHeight)
+	$contentBG.st('height', contentHeight + 50)
+
 	let widthSVG = $svg.node().clientWidth;
 	let heightSVG = widthSVG/1.4
 	$jordanBox.st('height', heightSVG)

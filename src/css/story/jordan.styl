@@ -3,8 +3,7 @@
   //position absolute
   width 100%
   z-index 999
-  height 100vh
-  margin-bottom 15rem
+  margin-bottom 50px
 
   .content-wrapper
     width 100%
@@ -14,11 +13,15 @@
 
     .jordan
       max-width 960px
-      margin -4rem auto 1rem auto
+      margin 1rem auto
       width 100%
       padding 0 1rem
       display flex
       flex-direction column
+      +mq('bp-3')
+        margin -1rem auto 1rem auto
+      +mq('bp-4')
+        margin -4rem auto 1rem auto
 
       .shoe-wrapper
         display inline-block
@@ -32,15 +35,25 @@
         .intro-text
           position absolute
           width 100%
-          top 5rem
+          top 0
           &.is-hidden
             display none
+          +mq('bp-3')
+              top 1rem
+          +mq('bp-4')
+            top 3rem
+          +mq('bp-5')
+            top 4rem
 
           p
             font-family $atlas
             text-align center
             color $white
-            set-type-size('x-large', true)
+            set-type-size('medium', true)
+            +mq('bp-3')
+              set-type-size('large', true)
+            +mq('bp-5')
+              set-type-size('x-large', true)
 
         .images
 

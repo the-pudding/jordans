@@ -88,10 +88,12 @@ nav
 
 			p
 				margin 1.5rem 0 0 0
-				set-type-size('small', true)
+				set-type-size('x-small', true)
+				+mq('bp-3')
+					set-type-size('small', true)
 
 			svg
-				margin 1.4rem 0 0 .25rem
+				margin 1.4rem 0 0 0.15rem
 
 		.autoplay
 			color $white
@@ -111,10 +113,14 @@ nav
 				background-color darken(#4729fc, 20)
 				border-radius 50%
 				padding 0.5rem
-				margin-left 0.5rem
+				margin-left 0
+				+mq('bp-3')
+					margin-left 0.25rem
 
 			p
 				margin 0.5rem 0 0 0
 				width 3rem
 				text-align left
-				set-type-size('small', true)
+				set-type-size('x-small', true)
+				+mq('bp-3')
+					set-type-size('small', true)
