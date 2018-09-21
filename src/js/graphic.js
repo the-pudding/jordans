@@ -9,6 +9,8 @@ const $nav = d3.select('nav');
 const $navUl = $nav.select('nav ul');
 const $navLi = $navUl.selectAll('li');
 const $autoplayBtn = $nav.select('.autoplay');
+const $svg = d3.select('#shapes')
+const $jordanBox = d3.select('.jordan')
 
 // for nav
 let dragPosX = 0;
@@ -56,7 +58,11 @@ const fillMatches = {
 
 let timer = null;
 
-function resize() {}
+function resize() {
+	let widthSVG = $svg.node().clientWidth;
+	let heightSVG = widthSVG/1.4
+	$jordanBox.st('height', heightSVG)
+}
 
 function pathsToJSON() {
 	const output = [];
@@ -139,8 +145,6 @@ function flubberAnimateAll({ prev, next }) {
 	} else {
 		nextShoe = currentShoe + 1;
 	}
-
-	console.log(currentShoe, nextShoe)
 
 	hideImage(prev);
 	revealImage(next);
@@ -316,6 +320,7 @@ function init() {
 			timer = d3.timeout(advanceShoe, TIMEOUT_DURATION);
 		})
 		.catch(console.log);
+	resize();
 }
 
 export default { init, resize };

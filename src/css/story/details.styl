@@ -3,8 +3,6 @@
   width 100%
   user-select auto
   margin 0 auto
-  +mq('bp-5')
-    margin 5rem auto 0 auto
 
   .details-text
     width 100%
@@ -106,4 +104,8 @@
         color $white
         padding 0
         margin 0
+        set-type-size('root', true)
         line-height 2
+        +mq('bp-5')
+          set-type-size('medium', true)
+          line-height 2
