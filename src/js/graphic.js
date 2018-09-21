@@ -70,8 +70,8 @@ function resize() {
 	} else {
 		contentHeight = contentWidth*1.25
 	}
-	$content.st('height', contentHeight)
-	$contentBG.st('height', contentHeight + 50)
+	// $content.st('height', contentHeight)
+	// $contentBG.st('height', contentHeight + 50)
 
 	let widthSVG = $svg.node().clientWidth;
 	let heightSVG = widthSVG/1.4
