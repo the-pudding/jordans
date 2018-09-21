@@ -22,6 +22,7 @@ const dragOffset = 0;
 let jordanData = [];
 
 let currentShoe = 0;
+let nextShoe = currentShoe + 1;
 const dataSrc = ['assets/data/jordans.json'];
 
 // colors
@@ -133,6 +134,14 @@ function flubberAnimateAll({ prev, next }) {
 
 	currentShoe = next;
 
+	if (currentShoe == 31) {
+		nextShoe = 0
+	} else {
+		nextShoe = currentShoe + 1;
+	}
+
+	console.log(currentShoe, nextShoe)
+
 	hideImage(prev);
 	revealImage(next);
 	updateText(next);
@@ -175,7 +184,6 @@ function updateText(next) {
 	d3.selectAll('.details-text').classed('is-visible', (d, i) => i === next);
 	d3.selectAll('.big-num').text(() => {
 		if ((next+1).toString().length > 1) {
-			console.log(next, currentShoe)
 			return next + 1;
 		} else {
 			return `0${(next + 1).toString()}`;
@@ -261,7 +269,7 @@ function handleDragEnd() {
 }
 
 function advanceShoe() {
-	flubberAnimateAll({ prev: currentShoe, next: currentShoe + 1 });
+	flubberAnimateAll({ prev: currentShoe, next: nextShoe });
 	timer = d3.timeout(advanceShoe, TIMEOUT_DURATION);
 }
 
