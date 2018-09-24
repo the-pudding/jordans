@@ -9,8 +9,14 @@
     max-width 960px
     margin 0 auto
     display none
+    opacity 0
     padding 0 2rem
     &.is-visible
+      visibility visible
+      animation-name fadeInUp
+      animation-duration 750ms
+      animation-timing-function ease-in-out
+      animation-fill-mode both
       display flex
       flex-direction column
       z-index 2000
@@ -107,3 +113,16 @@
         +mq('bp-5')
           set-type-size('medium', true)
           line-height 2
+
+@keyframes fadeInUp {
+  from {
+    transform: translate3d(0, 40px, 0)
+    opacity: 0
+    display: none
+  }
+  to {
+    transform: translate3d(0, 0, 0)
+    opacity: 1
+    display: flex
+  }
+}
