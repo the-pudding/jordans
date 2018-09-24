@@ -2,10 +2,10 @@ nav
 	z-index 999
 	overflow hidden
 	width 100%
-	margin 0 auto 0 auto
+	margin 3rem auto 0 auto
 	position sticky
 	top 0rem
-	padding 3.5rem 1rem 0 1rem
+	padding 0
 	&:after
 		position absolute
 		bottom 0
@@ -36,11 +36,14 @@ nav
 			background none
 
 	.nav-wrapper
+		background-color darken(#4729fc, 7)
+		padding 0 1rem
 
 		ul
 			display flex
 			flex-direction row
-			height 6.25rem
+			height 7rem
+			padding-bottom 0.5rem
 		li
 			display flex
 			flex-direction column
@@ -85,7 +88,8 @@ nav
 	.under-ul
 		display flex
 		justify-content space-between
-		margin-top 1rem
+		margin-top 0.25rem
+		padding 0 1rem
 
 		.nav-hint
 			display flex
@@ -114,9 +118,7 @@ nav
 				background-color darken(#4729fc, 20)
 				border-radius 50%
 				padding 0.5rem
-				margin 0.15rem 0 0 0
-				+mq('bp-3')
-					margin 0.15rem 0 0 0.5rem
+				margin 0.15rem 0.5rem 0 0
 
 			p
 				margin 0.5rem 0 0 0

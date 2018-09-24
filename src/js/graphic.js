@@ -189,6 +189,7 @@ function hideImage(prev) {
 
 function updateText(next) {
 	d3.selectAll('.intro-text').classed('is-hidden', true)
+	d3.selectAll('.loading-text').classed('is-hidden', true)
 	d3.selectAll('.details-text').classed('is-visible', (d, i) => i === next);
 	d3.selectAll('.big-num').text(() => {
 		if ((next+1).toString().length > 1) {
@@ -213,7 +214,7 @@ function handleShoeClick() {
 
 	if (timer) {
 		timer.stop();
-		$autoplayBtn.html('<p>Play</p><div class="play-pause"><img src="assets/images/play.svg"></div>');
+		$autoplayBtn.html('<div class="play-pause"><img src="assets/images/play.svg"></div><p>Play</p>');
 		timer = null;
 	}
 
@@ -284,10 +285,10 @@ function advanceShoe() {
 function handleAutoplayClick() {
 	const shouldPlay = $autoplayBtn.text() === 'Play';
 	if (shouldPlay) {
-		$autoplayBtn.html('<p>Pause</p><div class="play-pause"><img src="assets/images/pause.svg"></div>');
+		$autoplayBtn.html('<div class="play-pause"><img src="assets/images/pause.svg"></div><p>Pause</p>');
 		advanceShoe();
 	} else if (!shouldPlay && timer) {
-		$autoplayBtn.html('<p>Play</p><div class="play-pause"><img src="assets/images/play.svg"></div>');
+		$autoplayBtn.html('<div class="play-pause"><img src="assets/images/play.svg"></div><p>Play</p>');
 		timer.stop();
 		timer = null;
 	}
