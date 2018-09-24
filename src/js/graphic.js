@@ -10,6 +10,7 @@ const $navUl = $nav.select('nav ul');
 const $navLi = $navUl.selectAll('li');
 const $autoplayBtn = $nav.select('.autoplay');
 const $svg = d3.select('#shapes');
+const $shoeWrapper = d3.select('.shoe-wrapper')
 const $jordanBox = d3.select('.jordan');
 const $content = d3.select('#content');
 const $contentBG = d3.select('.content-bg');
@@ -61,7 +62,7 @@ const fillMatches = {
 let timer = null;
 
 function resize() {
-	let widthSVG = $svg.node().clientWidth;
+	let widthSVG = $shoeWrapper.node().offsetWidth;
 	let heightSVG = widthSVG/1.4
 	$jordanBox.st('height', heightSVG)
 }
