@@ -33,7 +33,9 @@
 		width 100%
 		top 0
 		&.is-hidden
-			display none
+			opacity 0
+			visibility hidden
+			transition visibility 200ms linear, opacity 200ms linear;
 		+mq('bp-3')
 			top 1rem
 		+mq('bp-4')
@@ -56,7 +58,9 @@
 		width 100%
 		top 15rem
 		&.is-hidden
-			display none
+			opacity 0
+			visibility hidden
+			transition visibility 200ms linear, opacity 200ms linear;
 		+mq('bp-3')
 			top 25rem
 		+mq('bp-4')
