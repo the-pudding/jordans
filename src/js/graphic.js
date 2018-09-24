@@ -204,9 +204,6 @@ function handleShoeClick() {
 	const item = d3.select(this);
 	const activeState = item.classed('is-active');
 
-	$navLi.classed('is-active', false);
-	item.classed('is-active', !activeState);
-
 	// d3.selectAll('li:not(.is-active)').classed('not-selected', !notActive);
 	// const name = item.at('data-type');
 	// const id = item.at('data-id');
@@ -217,8 +214,11 @@ function handleShoeClick() {
 		$autoplayBtn.html('<div class="play-pause"><img src="assets/images/play.svg"></div><p>Play</p>');
 		timer = null;
 	}
-
-	flubberAnimateAll({ prev: currentShoe, next });
+	if (currentShoe !== next) {
+		$navLi.classed('is-active', false);
+		item.classed('is-active', !activeState);
+		flubberAnimateAll({ prev: currentShoe, next });
+	}
 }
 
 function prefix(prop) {
