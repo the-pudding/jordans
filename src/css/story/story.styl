@@ -24,13 +24,27 @@ body
 			// z-index 2
 
 			.big-num
-				font-size 25rem
+				font-size 10rem
 				user-select none
-				margin -10% 5% 0 0
-				letter-spacing -3rem
+				margin 25% 5% 0 0
+				letter-spacing -0.5rem
 				padding 0
 				text-align right
 				font-family $raj
 				color darken(#4729fc, 7)
+				+mq('bp-5')
+					font-size 30rem
+					margin -5% 5% 0 0
+					letter-spacing -3rem
 				+mq('bp-4')
-					font-size 40rem
+					font-size 25rem
+					margin -5% 5% 0 0
+					letter-spacing -2rem
+				+mq('bp-3')
+					font-size 20rem
+					letter-spacing -1.5rem
+					margin 0% 5% 0 0
+				+mq('bp-3')
+					font-size 15rem
+					margin 10% 5% 0 0
+					letter-spacing -1rem

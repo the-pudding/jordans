@@ -92,9 +92,15 @@ nav
 
 		.nav-hint
 			display flex
+			visibility visible
+			&.is-hidden
+				visibility hidden
 
 			svg
 				margin 0.4rem 0 0 0.15rem
+				animation bounceRight 1s infinite
+				position relative
+				left 0
 
 			p
 				margin 0.5rem 0 0 0
@@ -126,3 +132,38 @@ nav
 				set-type-size('x-small', true)
 				+mq('bp-3')
 					set-type-size('small', true)
+
+.text-hint
+	display flex
+	position fixed
+	bottom 0.5rem
+	right 1rem
+	visibility hidden
+	&.is-visible
+		visibility visible
+
+	svg
+		margin 0.4rem 0 0 0.15rem
+		animation bounceUp 1s infinite
+		position relative
+		bottom 0
+
+	p
+		margin 0.5rem 0 0 0
+		set-type-size('x-small', true)
+		+mq('bp-3')
+			set-type-size('small', true)
+
+@keyframes bounceUp {
+  0%       { bottom:1px; }
+  25%, 75% { bottom:2px; }
+  50%      { bottom:3px; }
+  100%     { bottom:0; }
+}
+
+@keyframes bounceRight {
+  0%       { left:1px; }
+  25%, 75% { left:2px; }
+  50%      { left:3px; }
+  100%     { left:0; }
+}

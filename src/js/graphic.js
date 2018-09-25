@@ -14,6 +14,8 @@ const $shoeWrapper = d3.select('.shoe-wrapper')
 const $jordanBox = d3.select('.jordan');
 const $content = d3.select('#content');
 const $contentBG = d3.select('.content-bg');
+const $texthint = d3.select('.text-hint');
+const $navhint = d3.select('.nav-hint');
 
 // for nav
 let dragPosX = 0;
@@ -187,7 +189,17 @@ function hideImage(prev) {
 		.style('opacity', '0');
 }
 
+window.onscroll = function() {
+	console.log($texthint.classed('is-visible'))
+	if ($texthint.classed('is-visible') == true) {
+		$texthint.classed('is-visible', false)
+	}
+}
+
 function updateText(next) {
+	if (next == 0) {
+		$texthint.classed('is-visible', true)
+	}
 	d3.selectAll('.intro-text').classed('is-hidden', true)
 	d3.selectAll('.loading-text').classed('is-hidden', true)
 	d3.selectAll('.details-text').classed('is-visible', (d, i) => i === next);
@@ -226,6 +238,7 @@ function prefix(prop) {
 }
 
 function handleDrag() {
+	$navhint.classed('is-hidden', true)
 	const { x } = d3.event;
 	const diff = dragPosX - x;
 	dragPosX = x;
