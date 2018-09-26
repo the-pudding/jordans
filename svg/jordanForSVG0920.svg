@@ -7,10 +7,12 @@
 	 </style>
 	 	<linearGradient id="gradientWhite" gradientUnits="userSpaceOnUse" x1="416.3529" y1="333.1227" x2="889.751" y2="333.1227">
 	 	 	<stop  offset="0" stop-color='var(--color-stop-1)'/>
-	 	 	<stop  offset="0.4771" stop-color='var(--color-stop-2)'/>
-	 	 	<stop  offset="0.7609" stop-color='var(--color-stop-3)'/>
-	 	 	<stop  offset="0.9938" stop-color='var(--color-stop-4)'/>
-	 	 	<stop  offset="1" stop-color='var(--color-stop-5)'/>
+	 	 	<stop  offset="0.1428" stop-color='var(--color-stop-2)'/>
+	 	 	<stop  offset="0.2856" stop-color='var(--color-stop-3)'/>
+	 	 	<stop  offset="0.4284" stop-color='var(--color-stop-4)'/>
+			<stop  offset="0.5712" stop-color='var(--color-stop-5)'/>
+	 	 	<stop  offset="0.7141" stop-color='var(--color-stop-6)'/>
+	 	 	<stop  offset="1" stop-color='var(--color-stop-7)'/>
 	  	</linearGradient>
 	 	<linearGradient id="gradientCosmos" gradientUnits="userSpaceOnUse" x1="53.6022" y1="378.1213" x2="778.9922" y2="378.1213">
 	 		<stop  offset="0" stop-color='var(--color-stop-1)'/>
