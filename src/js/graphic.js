@@ -223,7 +223,7 @@ function handleShoeClick() {
 
 	if (timer) {
 		timer.stop();
-		$autoplayBtn.html('<div class="play-pause"><img src="assets/images/play.svg"></div><p>Play</p>');
+		$autoplayBtn.html('<div class="play-pause"><img class="play-icon" src="assets/images/play.svg"></div>');
 		timer = null;
 	}
 	if (currentShoe !== next) {
@@ -296,12 +296,12 @@ function advanceShoe() {
 }
 
 function handleAutoplayClick() {
-	const shouldPlay = $autoplayBtn.text() === 'Play';
+	const shouldPlay = $autoplayBtn.html() === '<div class="play-pause"><img class="play-icon" src="assets/images/play.svg"></div>';
 	if (shouldPlay) {
-		$autoplayBtn.html('<div class="play-pause"><img src="assets/images/pause.svg"></div><p>Pause</p>');
+		$autoplayBtn.html('<div class="play-pause"><img src="assets/images/pause.svg"></div>');
 		advanceShoe();
 	} else if (!shouldPlay && timer) {
-		$autoplayBtn.html('<div class="play-pause"><img src="assets/images/play.svg"></div><p>Play</p>');
+		$autoplayBtn.html('<div class="play-pause"><img class="play-icon" src="assets/images/play.svg"></div>');
 		timer.stop();
 		timer = null;
 	}
