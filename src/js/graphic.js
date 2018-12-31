@@ -145,7 +145,7 @@ function flubberAnimateAll({ prev, next }) {
 
 	currentShoe = next;
 
-	if (currentShoe == 31) {
+	if (currentShoe == 33) {
 		nextShoe = 1
 	} else {
 		nextShoe = currentShoe + 1;
