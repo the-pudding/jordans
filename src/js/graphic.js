@@ -190,7 +190,6 @@ function hideImage(prev) {
 }
 
 window.onscroll = function() {
-	console.log($texthint.classed('is-visible'))
 	if ($texthint.classed('is-visible') == true) {
 		$texthint.classed('is-visible', false)
 	}
@@ -336,7 +335,7 @@ function init() {
 			setUpFirstShoe();
 			timer = d3.timeout(advanceShoe, TIMEOUT_DURATION);
 		})
-		.catch(console.log);
+		//.catch(console.log);
 	resize();
 }
 
