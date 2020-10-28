@@ -40,7 +40,7 @@ const fillMatches = {
 	st2: '#414042',
 	st3: '#58595B',
 	st4: '#E6E6E6',
-	st5: 'none',
+	st5: '#333333',
 	st6: '#333333',
 	st7: 'url(#gradientWhite)',
 	st8: '#D81F28',
@@ -64,31 +64,9 @@ const fillMatches = {
 	st26: '#F26C4B',
 	st27: '#EF412C',
 	st28: 'url(#gradientCosmos)',
-	st29: 'url(#gradientRedBlack)'
-	// st0: 'url(#gradientWhite)', // FIX GRADIENTS
-	// st1: '#D81F28',
-	// st2: '#BCBEC0',
-	// st3: '#58595B',
-	// st4: '#414042',
-	// st5: '#E6E7E8',
-	// st6: '#282829',
-	// st7: '#E31E26',
-	// st8: '#E6E6E6',
-	// st9: '#FFFFFF',
-	// st10: '#F3B81E',
-	// st11: '#B42C30',
-	// st13: '#939598',
-	// st14: '#D1D3D4',
-	// st15: '#B3B3B3',
-	// st16: '#6D6E71',
-	// st17: '#333333',
-	// st18: '#0368AB',
-	// st19: '#1B75BC',
-	// st20: '#C7E9F1',
-	// st21: '#F26C4B',
-	// st22: '#EF412C',
-	// st23: 'url(#gradientCosmos)',
-	// st24: 'url(#gradientRedBlack)'
+	st29: 'url(#gradientRedBlack)',
+	st30: '#D7DF23',
+	st31: 'url(#gradientRedBlue)'
 };
 
 let timer = null;
@@ -175,7 +153,8 @@ function flubberAnimateAll({ prev, next }) {
 
 	currentShoe = next;
 
-	if (currentShoe == 34) {
+	// Change this to most recent Jordan shoe to loop
+	if (currentShoe == 35) {
 		nextShoe = 1
 	} else {
 		nextShoe = currentShoe + 1;

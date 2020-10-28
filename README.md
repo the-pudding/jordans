@@ -178,3 +178,40 @@ Run `make pudding` to deploy and bust cache. If you only made changes to html/cs
 - create two social images:
   * Facebook: 1200 x 628 (`src/assets/social/social-facebook.jpg`)
   * Twitter: 1024 x 576 (`src/assets/social/social-twitter.jpg`)
+
+## Notes for Jan when doing annual update
+### For Illustrator
+- The file name will be structued as `jordanFORSVG_{year}UPDATE.ai`
+- The file has 2 layers: `shapes` for the underlying paths to export to SVG and transform and `details` for things like stiching and logos that will be exported as a PNG and fade in over top of the shape
+- Within those broad layers, there is a layer for each shoe (ex: `jordan35` in `shapes` and `jordan_d` in `details`)
+- Then within the shape < shoe layer there are paths for the individuals shapes (ex: `j35_1` and `j35_2`)
+- In general, the numbers should move in chronological order from the bottom left to the toe at the right, but for continuity, key parts of the shoe should be ordered and numbered as follows:
+
+| No.  |  Part |
+|---|---|
+| 1  | Heel  |
+| 12  | Tongue  |
+| 13  | Toe box  |
+| 15  | Sole  |   |
+
+- Simple paths are preferred (be sure to convert ellipses and rects to paths), but compound paths are acceptable if necessary. When using a compound path, be sure that the element that should appear on top during the morph is ordered an numbered before the bottom element (ex: `j12_10` (top) and `j12_11` (bottom)).
+- To export the SVG for morphing:
+  * Change all shapes filled with white-to-gray gradients to be magenta (this is so this style can be quickly found later). All other gradients are unqiue and can be left as is.
+  * Completely removed the `details` layer.
+  * Unlock and unhide each sublayer in `shapes` so that each shoe is visible at the same time.
+  * Then select `File < Save As`, change the format to `SVG (svg)`, check `Use Artboard`, and use the default SVG settings.
+  * Open the SVG and move all of the `<linear gradient>` tags out of the individual shoe groups to between the `css` and the shoe groups.
+- To export the PNG to overlay:
+  * Hide the `shapes` layer so that only the `details` layer is visible
+  * Then select `File < Export < Export for Screens` using the `PNG 8` format at `1920px` wide.
+- To export the same thumbnail:
+  * Make sure both layers are visible
+  * Then select `File < Export < Export for Screens` using the `PNG 8` format at `200px` wide.
+
+### For the build
+- Add copy about a new shoe to the google doc and run `npm run doc` to update.
+- Add in a new `img` for the overlay in `html < partials < story < jordan.hbs`. 
+- Place the newly generated SVG in the `svg` folder and update the reference in `html < partials < story < jordan.hbs`.
+- In `js < graphic.js` comment out everything beyond the `pathsToJSON()` function in `init()`. Then open the console, enter `output`, and copy the json it spits out into `assets < data < jordans.json`, saving over what is currently there.
+- Change `currentShoe == {most recent show number}` on line 155 of `graphic.js`.
+- Uncomment out the things that you just did. Check for errors.
