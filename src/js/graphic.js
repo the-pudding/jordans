@@ -35,15 +35,15 @@ const dataSrc = ['assets/data/jordans.json'];
 // colors
 const fallbackColor = '#000';
 const fillMatches = {
-	st0: '#E31E26',
+	st0: '#414042',
 	st1: '#E6E7E8',
-	st2: '#414042',
-	st3: '#58595B',
+	st2: '#E31E26',
+	st3: '#333333',
 	st4: '#E6E6E6',
-	st5: '#333333',
-	st6: '#333333',
-	st7: 'url(#gradientWhite)',
-	st8: '#D81F28',
+	st5: '#58595B',
+	st6: 'url(#gradientWhite)',
+	st7: '#D81F28',
+	st8: 'url(#gradientWhite)',
 	st9: '#BCBEC0',
 	st10: '#282829',
 	st11: '#0D0D0D',
@@ -51,22 +51,23 @@ const fillMatches = {
 	st13: '#FFFFFF',
 	st14: '#F3B81E',
 	st15: '#B42C30',
-	st16: 'url(#gradientWhite)',
-	st17: 'url(#gradientWhite)',
-	st18: '#939598',
-	st19: '#D1D3D4',
-	st20: '#6D6E71',
-	st21: '#1A1A1A',
-	st22: '#0368AB',
-	st23: '#1B75BC',
-	st24: 'url(#gradientWhite)',
-	st25: '#C7E9F1',
-	st26: '#F26C4B',
-	st27: '#EF412C',
-	st28: 'url(#gradientCosmos)',
-	st29: 'url(#gradientRedBlack)',
-	st30: '#D7DF23',
-	st31: 'url(#gradientRedBlue)'
+	st16: '#939598',
+	st17: '#D1D3D4',
+	st18: '#6D6E71',
+	st19: '#1A1A1A',
+	st20: '#0368AB',
+	st21: '#1C75BC',
+	st22: '#C7E9F1',
+	st23: '#F26C4B',
+	st24: '#EF412C',
+	st25: 'url(#gradientCosmos)',
+	st26: 'url(#gradientCosmos)',
+	st27: 'url(#gradientCosmos)',
+	st28: 'url(#gradientRedBlack)',
+	st29: '#21409A',
+	st30: '#A7A9AC',
+	st31: '#D7DF23',
+	st32: 'url(#gradientRedBlue)'
 };
 
 let timer = null;
@@ -172,13 +173,6 @@ function loadData() {
 			else resolve(response);
 		});
 	});
-}
-
-function removePaths() {
-	// Remove all the paths except the first
-	d3.selectAll('g')
-		.filter((d, i) => i)
-		.remove();
 }
 
 function revealImage(next) {
@@ -334,9 +328,7 @@ function setupNav() {
 }
 
 function init() {
-	pathsToJSON();
-	// TODO delete this before production
-	//removePaths();
+	//pathsToJSON();
 	loadData()
 		.then(data => {
 			jordanData = data[0];

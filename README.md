@@ -194,13 +194,13 @@ Run `make pudding` to deploy and bust cache. If you only made changes to html/cs
 | 13  | Toe box  |
 | 15  | Sole  |   |
 
-- Simple paths are preferred (be sure to convert ellipses and rects to paths), but compound paths are acceptable if necessary. When using a compound path, be sure that the element that should appear on top during the morph is ordered an numbered before the bottom element (ex: `j12_10` (top) and `j12_11` (bottom)).
+- Simple paths are preferred (be sure to convert circles, ellipses, and rects to paths), but compound paths are acceptable if necessary. When using a compound path, be sure that the element that should appear on top during the morph is ordered and numbered before the bottom element (ex: `j12_10` (top) and `j12_11` (bottom)).
 - To export the SVG for morphing:
+  * Do not save over the exsiting file.
   * Change all shapes filled with white-to-gray gradients to be magenta (this is so this style can be quickly found later). All other gradients are unqiue and can be left as is.
   * Completely removed the `details` layer.
   * Unlock and unhide each sublayer in `shapes` so that each shoe is visible at the same time.
   * Then select `File < Save As`, change the format to `SVG (svg)`, check `Use Artboard`, and use the default SVG settings.
-  * Open the SVG and move all of the `<linear gradient>` tags out of the individual shoe groups to between the `css` and the shoe groups.
 - To export the PNG to overlay:
   * Hide the `shapes` layer so that only the `details` layer is visible
   * Then select `File < Export < Export for Screens` using the `PNG 8` format at `1920px` wide.
@@ -211,7 +211,12 @@ Run `make pudding` to deploy and bust cache. If you only made changes to html/cs
 ### For the build
 - Add copy about a new shoe to the google doc and run `npm run doc` to update.
 - Add in a new `img` for the overlay in `html < partials < story < jordan.hbs`. 
-- Place the newly generated SVG in the `svg` folder and update the reference in `html < partials < story < jordan.hbs`.
+- Place the newly generated SVG in the `svg` folder and update the reference in `html < partials < story < jordan.hbs`. You'll also need to do the following:
+  * If you used any gradients in the new shoe, open the SVG and move their `<linearGradient>` tags out of the individual shoe groups to between the `css` and the shoe groups. Rename the ids for these to be found later (ex: `#gradientRedBlack`). The gradient stops will need to be formated as css variables. Reference `css < story < jordan.styl` for this. Open the previous SVG and copy and paste all existing `<linearGradient>` tags to the new file.
+  * Delete the `width` and `height` properties from the `svg` tag.
+  * Check to make sure that all shoe group ids follow the same naming pattern (ex: `jordan1` or `jordan35`). Sometimes Illustrator will add in underscores for version control.
+  * Use the css styles in the SVG file as the `fillMatches` object in `js < graphic.js`. Make sure that the gradient urls are named and referenced the same way and not with Illustrator generated ids. Once these are synced up, delete the inline styles in the SVG except for styles `.st0` through `.st5`. These will be referenced by the title `AIR JORDAN` shape.
 - In `js < graphic.js` comment out everything beyond the `pathsToJSON()` function in `init()`. Then open the console, enter `output`, and copy the json it spits out into `assets < data < jordans.json`, saving over what is currently there.
 - Change `currentShoe == {most recent show number}` on line 155 of `graphic.js`.
-- Uncomment out the things that you just did. Check for errors.
+- Uncomment out the things that you just did in the init function. Cross fingers and pray. Check for errors and to make sure all shoes are transitioning properly.
+- If all looks good, return to the SVG file and delete all shoe groups except for `jordan0`. All the paths and colors are saved in the json, so you can delete them here and reduce the initial SVG size.
