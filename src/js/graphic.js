@@ -33,17 +33,17 @@ let nextShoe = currentShoe + 1;
 const dataSrc = ['assets/data/jordans.json'];
 
 // colors
-const fallbackColor = '#000';
+const fallbackColor = '#000000';
 const fillMatches = {
-	st0: '#414042',
+	st0: '#E31E26',
 	st1: '#E6E7E8',
-	st2: '#E31E26',
-	st3: '#333333',
+	st2: '#414042',
+	st3: '#58595B',
 	st4: '#E6E6E6',
 	st5: '#58595B',
-	st6: 'url(#gradientWhite)',
-	st7: '#D81F28',
-	st8: 'url(#gradientWhite)',
+	st6: '#333333',
+	st7: 'url(#gradientWhite)',
+	st8: '#D81F28',
 	st9: '#BCBEC0',
 	st10: '#282829',
 	st11: '#0D0D0D',
@@ -64,10 +64,16 @@ const fillMatches = {
 	st26: 'url(#gradientCosmos)',
 	st27: 'url(#gradientCosmos)',
 	st28: 'url(#gradientRedBlack)',
-	st29: '#21409A',
-	st30: '#A7A9AC',
-	st31: '#D7DF23',
-	st32: 'url(#gradientRedBlue)'
+	st29: 'url(#gradientRedBlack)',
+	st30: 'url(#gradientRedBlack)',
+	st31: '#21409A',
+	st32: '#A7A9AC',
+	st33: '#D7DF23',
+	st34: 'url(#gradientRedBlue)',
+	st35: 'url(#gradientPurple)',
+	st36: '#ED907B',
+	st37: 'url(#gradientPurple)',
+	st38: '#983279'
 };
 
 let timer = null;
@@ -155,7 +161,7 @@ function flubberAnimateAll({ prev, next }) {
 	currentShoe = next;
 
 	// Change this to most recent Jordan shoe to loop
-	if (currentShoe == 35) {
+	if (currentShoe == 36) {
 		nextShoe = 1
 	} else {
 		nextShoe = currentShoe + 1;
