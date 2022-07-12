@@ -73,7 +73,10 @@ const fillMatches = {
 	st35: 'url(#gradientPurple)',
 	st36: '#ED907B',
 	st37: 'url(#gradientPurple)',
-	st38: '#983279'
+	st38: '#983279',
+	st39: '#392f8d',
+	st40: '#453D98',
+	st60: 'magenta'
 };
 
 let timer = null;
@@ -161,7 +164,7 @@ function flubberAnimateAll({ prev, next }) {
 	currentShoe = next;
 
 	// Change this to most recent Jordan shoe to loop
-	if (currentShoe == 36) {
+	if (currentShoe == 37) {
 		nextShoe = 1
 	} else {
 		nextShoe = currentShoe + 1;
@@ -334,7 +337,7 @@ function setupNav() {
 }
 
 function init() {
-	//pathsToJSON();
+	pathsToJSON();
 	loadData()
 		.then(data => {
 			jordanData = data[0];
