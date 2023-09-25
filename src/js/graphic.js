@@ -164,7 +164,7 @@ function flubberAnimateAll({ prev, next }) {
 	currentShoe = next;
 
 	// Change this to most recent Jordan shoe to loop
-	if (currentShoe == 37) {
+	if (currentShoe == 38) {
 		nextShoe = 1
 	} else {
 		nextShoe = currentShoe + 1;
