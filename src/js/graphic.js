@@ -76,7 +76,8 @@ const fillMatches = {
 	st38: '#983279',
 	st39: '#392f8d',
 	st40: '#453D98',
-	st60: 'magenta'
+	st60: 'magenta',
+	st61: "#F1F2F2"
 };
 
 let timer = null;
@@ -164,7 +165,7 @@ function flubberAnimateAll({ prev, next }) {
 	currentShoe = next;
 
 	// Change this to most recent Jordan shoe to loop
-	if (currentShoe == 38) {
+	if (currentShoe == 39) {
 		nextShoe = 1
 	} else {
 		nextShoe = currentShoe + 1;
